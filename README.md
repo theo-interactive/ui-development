@@ -1,2 +1,2 @@
 # ui-development
-Basic UI Development
+Basic UI Development (typescript)

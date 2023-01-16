@@ -1,0 +1,410 @@
+@import url("https://use.typekit.net/zzj4qmz.css");
+
+:root {
+    --color-dark: #222222;
+    --color-dark-bg: #242424;
+    --color-default: #000000;
+    --color-white: #ffffff;
+    --color-gray: #f5f5f5;
+    --color-light: #f9f9f9;
+    --color-light-border: #999999;
+    --color-red: #fe557b;
+    --color-green: #00a99d;
+}
+
+/*-- Reset. --*/
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, textarea, p, blockquote, th, td, input, select, textarea, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    margin: 0;
+    padding: 0
+}
+
+article, aside, details, figcaption, figure, footer, header, main, hgroup, menu, nav, section {
+    display: block
+}
+
+audio, canvas, progress, video {
+    display: inline-block
+}
+
+a, abbr, address, article, aside, audio, b, blockquote, body, br, button, canvas, caption, cite, code, col, data, datalist, dd, del, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hr, html, i, iframe, img, input, ins, kbd, label, legend, li, main, mark, meter, nav, object, ol, output, p, pre, progress, q, s, samp, section, select, small, span, strong, sub, sup, table, td, textarea, th, time, u, ul, var, video {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent
+}
+
+html {
+    -ms-content-zooming: none;
+    -ms-touch-action: pan-x pan-y
+}
+
+body {
+    -webkit-text-size-adjust: none
+}
+
+fieldset, img {
+    border: 0 none
+}
+
+dl, ul, ol, menu, li {
+    list-style: none
+}
+
+blockquote, q {
+    quotes: none
+}
+
+blockquote::before, blockquote::after, q::before, q::after {
+    content: '';
+    content: none
+}
+
+input, select, textarea, button {
+    font-size: 100%;
+    vertical-align: middle;
+    outline: none
+}
+
+button {
+    border: 0 none;
+    background-color: transparent;
+    cursor: pointer;
+    overflow: hidden
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+input[type="text"], input[type="tel"], input[type="password"], input[type="submit"], input[type="search"], input[type="number"] {
+    background-color: transparent;
+    border-radius: 0;
+    box-shadow: 0 0 0 0 transparent inset;
+    transition: color .1s ease, border-color .1s ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none
+}
+
+input:checked[type="checkbox"] {
+    background-color: var(--color-dark);
+    -webkit-appearance: checkbox
+}
+
+button, input[type="button"], input[type="submit"], input[type="reset"], input[type="file"] {
+    -webkit-appearance: button;
+    border-radius: 0
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none
+}
+
+input[type="date"] {
+    text-align: center;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none
+}
+
+input[type="date"]:invalid::-webkit-datetime-edit {
+    color: var(--color-dark)
+}
+
+input[type="date"]::-webkit-clear-button {
+    display: none
+}
+
+input[type="date"]::-webkit-inner-spin-button {
+    display: none
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    color: var(--color-dark)
+}
+
+input[type="date"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none
+}
+
+input:-webkit-autofill, input:-webkit-autofill:active, input:-webkit-autofill:focus, input:-webkit-autofill:hover {
+    -webkit-transition: background-color 5000s ease-in-out 0s;
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-box-shadow: 0 0 0 1000px transparent inset !important
+}
+
+textarea {
+    background-color: transparent;
+    border: none;
+    resize: none
+}
+
+audio:not([controls]) {
+    display: none;
+    height: 0
+}
+
+[hidden], template {
+    display: none
+}
+
+a, a:active, a:hover {
+    text-decoration: none
+}
+
+address, caption, cite, code, dfn, em, var {
+    font-style: normal;
+    font-weight: 400
+}
+
+i {
+    font-style: normal
+}
+
+a, button {
+    position: relative;
+    -webkit-tap-highlight-color: transparent
+}
+
+input {
+    border-radius: 0;
+    border: none;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    opacity: 1
+}
+
+a {
+    color: var(--color-dark);
+    -webkit-transition: color 200ms ease-in-out;
+    -moz-transition: color 200ms ease-in-out;
+    -o-transition: color 200ms ease-in-out;
+    transition: color 200ms ease-in-out
+}
+
+a:focus, input:focus, textarea:focus, button:focus {
+    outline: none
+}
+
+.blind {
+    overflow: hidden;
+    display: none;
+    visibility: hidden;
+    position: absolute;
+    clip: rect(0 0 0 0);
+    width: 0;
+    height: 0
+}
+
+html, body, th, td, input, select, textarea, button {
+    color: var(--color-dark);
+    text-size-adjust: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizelegibility;
+    font-family: futura-pt, 'Apple SD Gothic Neo', AppleSDGothicNeo, 'Malgun Gothic', '맑은 고딕', Roboto, 'Helvetica Neue', '애플 SD 산돌고딕 Neo', dotum, gulim, Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5rem
+}
+
+select, button {
+    user-select: none;
+    -webkit-user-select: none
+}
+
+::-moz-selection {
+    background: var(--color-default);
+    text-shadow: none;
+    color: var(--color-white)
+}
+
+::selection {
+    background: var(--color-default);
+    text-shadow: none;
+    color: var(--color-white)
+}
+
+.visually-hidden {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0;
+    height: 0;
+    clip: rect(0, 0, 0, 0);
+    pointer-events: none
+}
+
+/*-- Layout. --*/
+html {
+    transition: background-color 200ms ease-in-out;
+    -webkit-transition: background-color 200ms ease-in-out;
+    -moz-transition: background-color 200ms ease-in-out;
+    -o-transition: background-color 200ms ease-in-out
+}
+
+body {
+    transition: color 200ms ease-in-out;
+    -webkit-transition: color 200ms ease-in-out;
+    -moz-transition: color 200ms ease-in-out;
+    -o-transition: color 200ms ease-in-out
+}
+
+section.content {
+    display: -webkit-box;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
+}
+
+section.content h1.headline {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 3.5rem
+}
+
+section.content h1.headline span {
+    text-transform: capitalize
+}
+
+section.content p.copy {
+    font-size: 1.667rem;
+    line-height: 2.167rem
+}
+
+section.content h1.headline + p.copy {
+    margin-top: 20px
+}
+
+.mode-menu {
+    position: absolute;
+    top: 20px;
+    right: 20px
+}
+
+.mode-menu ul {
+    display: -webkit-box;
+    display: flex;
+}
+
+.mode-menu li + li {
+    margin-left: 8px
+}
+
+.mode-menu li a {
+    overflow: hidden;
+    display: block;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    text-indent: -9999em;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2)
+}
+
+.mode-menu li a span {
+    display: block;
+    width: 100%;
+    height: 100%
+}
+
+.mode-menu li a::before,
+.mode-menu li a::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    opacity: 0;
+    box-sizing: border-box;
+    transition: opacity 120ms cubic-bezier(0.455, 0.030, 0.515, 0.955);
+    -webkit-transition: opacity 120ms cubic-bezier(0.455, 0.030, 0.515, 0.955);
+    -moz-transition: opacity 120ms cubic-bezier(0.455, 0.030, 0.515, 0.955);
+}
+
+.mode-menu li a::before {
+    background-color: rgba(255, 255, 255, 0.2)
+}
+
+.mode-menu li a::after {
+    border: 1px solid #fff
+}
+
+.mode-menu li a:hover::before {
+    opacity: 1
+}
+
+.mode-menu li.selected a {
+    cursor: default
+}
+
+.mode-menu li.selected a::before {
+    opacity: 0
+}
+
+.mode-menu li a.light::before {
+    background-color: rgba(0, 0, 0, 0.1)
+}
+
+.mode-menu li.selected a::after {
+    opacity: 1
+}
+
+.mode-menu li a.light::after {
+    border-color: var(--color-light-border)
+}
+
+.mode-menu li a.light span {
+    background-color: var(--color-light)
+}
+
+.mode-menu li a.dark span {
+    background-color: var(--color-dark-bg)
+}
+
+.mode-menu li a.red span {
+    background-color: var(--color-red)
+}
+
+.mode-menu li a.green span {
+    background-color: var(--color-green)
+}
+
+html.mode-light {
+    background-color: var(--color-white)
+}
+
+html.mode-dark {
+    background-color: var(--color-dark);
+
+}
+
+html.mode-red {
+    background-color: var(--color-red)
+}
+
+html.mode-green {
+    background-color: var(--color-green)
+}
+
+html.mode-dark body,
+html.mode-red body,
+html.mode-green body {
+    color: var(--color-white)
+}
