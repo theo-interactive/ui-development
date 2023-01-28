@@ -247,164 +247,104 @@ select, button {
 }
 
 /*-- Layout. --*/
-html {
-    transition: background-color 200ms ease-in-out;
-    -webkit-transition: background-color 200ms ease-in-out;
-    -moz-transition: background-color 200ms ease-in-out;
-    -o-transition: background-color 200ms ease-in-out
+input#mode{
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    pointer-events: none;
+    clip: rect(0 0 0 0)
 }
 
-body {
-    transition: color 200ms ease-in-out;
-    -webkit-transition: color 200ms ease-in-out;
-    -moz-transition: color 200ms ease-in-out;
-    -o-transition: color 200ms ease-in-out
-}
-
-section.content {
-    display: -webkit-box;
+section.section {
     display: flex;
     width: 100vw;
     height: 100vh;
     flex-direction: column;
     justify-content: center;
-    align-items: center
+    align-items: center;
+    transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
+    -webkit-transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
+    -moz-transition: background-color 200ms ease-in-out, color 200ms ease-in-out;
+    -o-transition: background-color 200ms ease-in-out, color 200ms ease-in-out
 }
 
-section.content h1.headline {
+section.section h1.headline {
+    text-transform: capitalize;
     font-size: 3rem;
-    font-weight: 700;
-    line-height: 3.5rem
+    font-weight: 800;
+    line-height: 4rem
 }
 
-section.content h1.headline span {
-    text-transform: capitalize
+section.section h1.headline::before{
+    content: 'Light';
 }
 
-section.content p.copy {
-    font-size: 1.667rem;
-    line-height: 2.167rem
+input#mode:checked ~ section.section h1.headline::before{
+    content: 'Dark';
 }
 
-section.content h1.headline + p.copy {
-    margin-top: 20px
+section.section p.copy {
+    font-size: 1.5rem;
+    line-height: 2rem
 }
 
-.theme-menu {
+section.section h1.headline + p.copy {
+    margin-top: 16px
+}
+
+input#mode:checked ~ section.section {
+    background-color: var(--color-dark);
+    color: var(--color-white)
+}
+
+#controls {
     position: absolute;
     top: 20px;
     right: 20px
 }
 
-.theme-menu ul {
-    display: -webkit-box;
-    display: flex;
-}
-
-.theme-menu li + li {
-    margin-left: 8px
-}
-
-.theme-menu li a {
+#controls label#btn-switch {
     overflow: hidden;
     display: block;
-    position: relative;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    text-indent: -9999em;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2)
+    width: 24px;
+    height: 16px;
+    background-color: var(--color-dark);
+    border-radius: 8px;
+    line-height: 16px;
+    text-indent: -9999px;
+    cursor: pointer;
+    transition: background-color 180ms ease-in-out;
+    -webkit-transition: background-color 180ms ease-in-out;
+    -moz-transition: background-color 180ms ease-in-out;
+    -o-transition: background-color 180ms ease-in-out
 }
 
-.theme-menu li a span {
-    display: block;
-    width: 100%;
-    height: 100%
-}
-
-.theme-menu li a::before,
-.theme-menu li a::after {
-    content: '';
+#controls label#btn-switch span {
     display: block;
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 3px;
+    left: 3px;
+    width: 10px;
+    height: 10px;
+    background-color: var(--color-white);
     border-radius: 50%;
-    opacity: 0;
-    box-sizing: border-box;
-    transition: opacity 120ms var(--ease-quad-in-out);
-    -webkit-transition: opacity 120ms var(--ease-quad-in-out);
-    -moz-transition: opacity 120ms var(--ease-quad-in-out);
+    transition: left 180ms ease-in-out, background-color 180ms ease-in-out;
+    -webkit-transition: left 180ms ease-in-out, background-color 180ms ease-in-out;
+    -moz-transition: left 180ms ease-in-out, background-color 180ms ease-in-out;
+    -o-transition: left 180ms ease-in-out, background-color 180ms ease-in-out
 }
 
-.theme-menu li a::before {
-    background-color: rgba(255, 255, 255, 0.2)
-}
-
-.theme-menu li a::after {
-    border: 1px solid #fff
-}
-
-.theme-menu li a:hover::before {
-    opacity: 1
-}
-
-.theme-menu li.selected a {
-    cursor: default
-}
-
-.theme-menu li.selected a::before {
-    opacity: 0
-}
-
-.theme-menu li a.light::before {
-    background-color: rgba(0, 0, 0, 0.1)
-}
-
-.theme-menu li.selected a::after {
-    opacity: 1
-}
-
-.theme-menu li a.light::after {
-    border-color: var(--color-light-border)
-}
-
-.theme-menu li a.light span {
-    background-color: var(--color-light)
-}
-
-.theme-menu li a.dark span {
-    background-color: var(--color-dark-bg)
-}
-
-.theme-menu li a.red span {
-    background-color: var(--color-red)
-}
-
-.theme-menu li a.green span {
-    background-color: var(--color-green)
-}
-
-html.theme-light {
+input#mode:checked ~ #controls label#btn-switch{
     background-color: var(--color-white)
 }
 
-html.theme-dark {
-    background-color: var(--color-dark);
-}
-
-html.theme-red {
-    background-color: var(--color-red)
-}
-
-html.theme-green {
-    background-color: var(--color-green)
-}
-
-html.theme-dark body,
-html.theme-red body,
-html.theme-green body {
-    color: var(--color-white)
+input#mode:checked ~ #controls label#btn-switch span{
+    left: 11px;
+    background-color: var(--color-dark)
 }

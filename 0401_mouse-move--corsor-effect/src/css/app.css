@@ -2,14 +2,9 @@
 
 :root {
     --color-dark: #222222;
-    --color-dark-bg: #242424;
     --color-default: #000000;
     --color-white: #ffffff;
-    --color-gray: #f5f5f5;
-    --color-light: #f9f9f9;
-    --color-light-border: #999999;
-    --color-red: #fe557b;
-    --color-green: #00a99d;
+    --color-cursor-dot: #ff285f;
     --ease-quad-in-out: cubic-bezier(0.455, 0.030, 0.515, 0.955)
 }
 
@@ -247,164 +242,140 @@ select, button {
 }
 
 /*-- Layout. --*/
-html {
-    transition: background-color 200ms ease-in-out;
-    -webkit-transition: background-color 200ms ease-in-out;
-    -moz-transition: background-color 200ms ease-in-out;
-    -o-transition: background-color 200ms ease-in-out
-}
-
-body {
-    transition: color 200ms ease-in-out;
-    -webkit-transition: color 200ms ease-in-out;
-    -moz-transition: color 200ms ease-in-out;
-    -o-transition: color 200ms ease-in-out
-}
-
-section.content {
-    display: -webkit-box;
-    display: flex;
+section.section {
+    overflow: hidden;
     width: 100vw;
     height: 100vh;
-    flex-direction: column;
+    background-color: var(--color-default);
+}
+
+section.section .image-list {
+    display: -webkit-box;
+    display: flex;
+    max-width: 1440px;
+    height: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 40px;
+    padding-left: 40px;
     justify-content: center;
     align-items: center
 }
 
-section.content h1.headline {
-    font-size: 3rem;
-    font-weight: 700;
-    line-height: 3.5rem
-}
-
-section.content h1.headline span {
-    text-transform: capitalize
-}
-
-section.content p.copy {
-    font-size: 1.667rem;
-    line-height: 2.167rem
-}
-
-section.content h1.headline + p.copy {
-    margin-top: 20px
-}
-
-.theme-menu {
-    position: absolute;
-    top: 20px;
-    right: 20px
-}
-
-.theme-menu ul {
+section.section .image-list ul {
     display: -webkit-box;
     display: flex;
+    width: 100%;
+    margin-right: -20px;
+    margin-left: -20px
 }
 
-.theme-menu li + li {
-    margin-left: 8px
+section.section .image-list li {
+    width: 25%;
+    padding-right: 20px;
+    padding-left: 20px
 }
 
-.theme-menu li a {
-    overflow: hidden;
-    display: block;
-    position: relative;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    text-indent: -9999em;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2)
-}
-
-.theme-menu li a span {
+section.section .image-list li a {
     display: block;
     width: 100%;
-    height: 100%
+    cursor: pointer
 }
 
-.theme-menu li a::before,
-.theme-menu li a::after {
-    content: '';
+section.section .image-list li a figure {
+    display: block;
+    width: 100%
+}
+
+section.section .image-list li a figure img {
+    display: inline-block;
+    width: 100%;
+    vertical-align: top
+}
+
+#cursor-dot,
+#cursor-bg,
+#select {
+    overflow: hidden;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    pointer-events: none;
+    transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -o-transform: translateX(-50%) translateY(-50%)
+}
+
+#cursor-dot {
+    z-index: 300;
+    width: 4px;
+    height: 4px;
+    background-color: var(--color-cursor-dot);
+    border-radius: 50%
+}
+
+#cursor-bg {
+    z-index: 100;
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--color-dark);
+    border-radius: 50%;
+    transition: width 200ms var(--ease-quad-in-out), height 200ms var(--ease-quad-in-out), background-color var(--ease-quad-in-out), border-color 200ms var(--ease-quad-in-out);
+    -webkit-transition: width 200ms var(--ease-quad-in-out), height 200ms var(--ease-quad-in-out), background-color var(--ease-quad-in-out), border-color 200ms var(--ease-quad-in-out);
+    -moz-transition: width 200ms var(--ease-quad-in-out), height 200ms var(--ease-quad-in-out), background-color var(--ease-quad-in-out), border-color 200ms var(--ease-quad-in-out);
+    -o-transition: width 200ms var(--ease-quad-in-out), height 200ms var(--ease-quad-in-out), background-color var(--ease-quad-in-out), border-color 200ms var(--ease-quad-in-out)
+}
+
+#cursor-bg.active {
+    width: 60px;
+    height: 60px;
+    background-color: var(--color-white);
+    border-color: var(--color-white);
+    mix-blend-mode: exclusion
+}
+
+#select {
+    z-index: 200;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    color: var(--color-white);
+    transition: width 200ms var(--ease-quad-in-out);
+    -webkit-transition: width 200ms var(--ease-quad-in-out);
+    -moz-transition: width 200ms var(--ease-quad-in-out);
+    -o-transition: width 200ms var(--ease-quad-in-out)
+}
+
+#select span {
     display: block;
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 0.833rem;
+    line-height: 1.333rem;
+    transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -o-transform: translateX(-50%) translateY(-50%)
+}
+
+#select span::after {
+    content: 'select';
     opacity: 0;
-    box-sizing: border-box;
-    transition: opacity 120ms var(--ease-quad-in-out);
-    -webkit-transition: opacity 120ms var(--ease-quad-in-out);
-    -moz-transition: opacity 120ms var(--ease-quad-in-out);
+    transition: opacity 200ms var(--ease-quad-in-out);
+    -webkit-transition: opacity 200ms var(--ease-quad-in-out);
+    -moz-transition: opacity 200ms var(--ease-quad-in-out);
+    -o-transition: opacity 200ms var(--ease-quad-in-out)
 }
 
-.theme-menu li a::before {
-    background-color: rgba(255, 255, 255, 0.2)
+#select.active {
+    width: 60px;
+    height: 60px
 }
 
-.theme-menu li a::after {
-    border: 1px solid #fff
-}
-
-.theme-menu li a:hover::before {
+#select.active span::after {
     opacity: 1
-}
-
-.theme-menu li.selected a {
-    cursor: default
-}
-
-.theme-menu li.selected a::before {
-    opacity: 0
-}
-
-.theme-menu li a.light::before {
-    background-color: rgba(0, 0, 0, 0.1)
-}
-
-.theme-menu li.selected a::after {
-    opacity: 1
-}
-
-.theme-menu li a.light::after {
-    border-color: var(--color-light-border)
-}
-
-.theme-menu li a.light span {
-    background-color: var(--color-light)
-}
-
-.theme-menu li a.dark span {
-    background-color: var(--color-dark-bg)
-}
-
-.theme-menu li a.red span {
-    background-color: var(--color-red)
-}
-
-.theme-menu li a.green span {
-    background-color: var(--color-green)
-}
-
-html.theme-light {
-    background-color: var(--color-white)
-}
-
-html.theme-dark {
-    background-color: var(--color-dark);
-}
-
-html.theme-red {
-    background-color: var(--color-red)
-}
-
-html.theme-green {
-    background-color: var(--color-green)
-}
-
-html.theme-dark body,
-html.theme-red body,
-html.theme-green body {
-    color: var(--color-white)
 }

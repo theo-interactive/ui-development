@@ -2,15 +2,9 @@
 
 :root {
     --color-dark: #222222;
-    --color-dark-bg: #242424;
     --color-default: #000000;
     --color-white: #ffffff;
     --color-gray: #f5f5f5;
-    --color-light: #f9f9f9;
-    --color-light-border: #999999;
-    --color-red: #fe557b;
-    --color-green: #00a99d;
-    --ease-quad-in-out: cubic-bezier(0.455, 0.030, 0.515, 0.955)
 }
 
 /*-- Reset. --*/
@@ -247,164 +241,109 @@ select, button {
 }
 
 /*-- Layout. --*/
-html {
-    transition: background-color 200ms ease-in-out;
-    -webkit-transition: background-color 200ms ease-in-out;
-    -moz-transition: background-color 200ms ease-in-out;
-    -o-transition: background-color 200ms ease-in-out
+.tab {
+    max-width: 800px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 40px;
+    padding-bottom: 60px
 }
 
-body {
-    transition: color 200ms ease-in-out;
-    -webkit-transition: color 200ms ease-in-out;
-    -moz-transition: color 200ms ease-in-out;
-    -o-transition: color 200ms ease-in-out
+.tab .tab-menu {
 }
 
-section.content {
+.tab-menu ul {
     display: -webkit-box;
     display: flex;
-    width: 100vw;
-    height: 100vh;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center
+    margin-right: -10px;
+    margin-left: -10px
 }
 
-section.content h1.headline {
-    font-size: 3rem;
-    font-weight: 700;
-    line-height: 3.5rem
+.tab-menu li {
+    flex: 1;
+    padding-right: 10px;
+    padding-left: 10px
 }
 
-section.content h1.headline span {
-    text-transform: capitalize
+.tab-menu li + li {
+    position: relative
 }
 
-section.content p.copy {
-    font-size: 1.667rem;
-    line-height: 2.167rem
-}
-
-section.content h1.headline + p.copy {
-    margin-top: 20px
-}
-
-.theme-menu {
-    position: absolute;
-    top: 20px;
-    right: 20px
-}
-
-.theme-menu ul {
-    display: -webkit-box;
-    display: flex;
-}
-
-.theme-menu li + li {
-    margin-left: 8px
-}
-
-.theme-menu li a {
-    overflow: hidden;
-    display: block;
-    position: relative;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    text-indent: -9999em;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2)
-}
-
-.theme-menu li a span {
-    display: block;
-    width: 100%;
-    height: 100%
-}
-
-.theme-menu li a::before,
-.theme-menu li a::after {
+.tab-menu li + li::before {
     content: '';
     display: block;
     position: absolute;
-    top: 0;
+    top: 10px;
+    bottom: 10px;
     left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    opacity: 0;
-    box-sizing: border-box;
-    transition: opacity 120ms var(--ease-quad-in-out);
-    -webkit-transition: opacity 120ms var(--ease-quad-in-out);
-    -moz-transition: opacity 120ms var(--ease-quad-in-out);
+    border-right: 1px solid var(--color-default)
 }
 
-.theme-menu li a::before {
-    background-color: rgba(255, 255, 255, 0.2)
+.tab-menu li a {
+    display: block;
+    padding: 12px 20px;
+    text-align: center;
+    background-color: var(--color-gray);
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 20px;
+    cursor: pointer
 }
 
-.theme-menu li a::after {
-    border: 1px solid #fff
-}
-
-.theme-menu li a:hover::before {
-    opacity: 1
-}
-
-.theme-menu li.selected a {
+.tab-menu li a.selected {
+    font-weight: 600;
+    background-color: var(--color-dark);
+    color: var(--color-white);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
     cursor: default
 }
 
-.theme-menu li.selected a::before {
-    opacity: 0
+.tab-menu li a span {
+    display: inline-block;
+    vertical-align: top
 }
 
-.theme-menu li a.light::before {
-    background-color: rgba(0, 0, 0, 0.1)
+.tab .tab-contents {
+    position: relative;
+    height: 500px;
+    margin-top: 40px;
+    padding-top: 4px
 }
 
-.theme-menu li.selected a::after {
-    opacity: 1
+.tab .tab-contents::before,
+.tab .tab-contents::after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 0;
+    left: 0;
+    border-bottom: 1px solid var(--color-default)
 }
 
-.theme-menu li a.light::after {
-    border-color: var(--color-light-border)
+.tab .tab-contents::before {
+    top: 0
 }
 
-.theme-menu li a.light span {
-    background-color: var(--color-light)
+.tab .tab-contents::after {
+    top: 3px
 }
 
-.theme-menu li a.dark span {
-    background-color: var(--color-dark-bg)
+.tab-contents .tab-content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none
 }
 
-.theme-menu li a.red span {
-    background-color: var(--color-red)
+.tab-contents .tab-content.selected {
+    position: relative;
+    opacity: 1;
+    pointer-events: auto
 }
 
-.theme-menu li a.green span {
-    background-color: var(--color-green)
-}
-
-html.theme-light {
-    background-color: var(--color-white)
-}
-
-html.theme-dark {
-    background-color: var(--color-dark);
-}
-
-html.theme-red {
-    background-color: var(--color-red)
-}
-
-html.theme-green {
-    background-color: var(--color-green)
-}
-
-html.theme-dark body,
-html.theme-red body,
-html.theme-green body {
-    color: var(--color-white)
+.tab-contents .tab-content .tab-content-wrap {
+    padding: 25px 20px
 }
