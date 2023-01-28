@@ -1,4 +1,4 @@
-# Appearance - Color Theme
+# Appearance - Color Theme (Typescript)
 
 ## Installation
 

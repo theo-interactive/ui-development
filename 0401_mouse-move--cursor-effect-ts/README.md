@@ -1,4 +1,4 @@
-# Appearance - Color Theme
+# Mouse Move - Cursor Effect (Typescript)
 
 ## Installation
 

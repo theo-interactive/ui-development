@@ -1,4 +1,4 @@
-# Tab Menu
+# Tab Menu (Typescript)
 
 ## Installation
 
