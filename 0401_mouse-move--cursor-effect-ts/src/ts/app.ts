@@ -3,9 +3,9 @@ import gsap from 'gsap';
 class App {
 
   btnListEls: NodeListOf<HTMLAnchorElement> | undefined;
-  cursorDotEl: HTMLDivElement | null | undefined
-  cursorBGEl: HTMLDivElement | null | undefined
-  selectEl: HTMLDivElement | null | undefined
+  cursorDotEl: HTMLDivElement | null | undefined;
+  cursorBGEl: HTMLDivElement | null | undefined;
+  selectEl: HTMLDivElement | null | undefined;
 
   constructor() {
     this.layout();
@@ -15,7 +15,7 @@ class App {
 
   layout() {
     this.btnListEls = document.querySelectorAll('#image-list li a');
-    this.cursorDotEl = document.querySelector('#cursor-dot') as HTMLDivElement
+    this.cursorDotEl = document.querySelector('#cursor-dot') as HTMLDivElement;
     this.cursorBGEl = document.querySelector('#cursor-bg') as HTMLDivElement;
     this.selectEl = document.querySelector('#select') as HTMLDivElement;
   }
@@ -42,9 +42,9 @@ class App {
       || !this.selectEl) {
       return
     }
-    gsap.killTweensOf(this.cursorDotEl)
-    gsap.killTweensOf(this.cursorBGEl)
-    gsap.killTweensOf(this.selectEl)
+    gsap.killTweensOf(this.cursorDotEl);
+    gsap.killTweensOf(this.cursorBGEl);
+    gsap.killTweensOf(this.selectEl);
   }
 
   handleMouseMoveWindow(e: MouseEvent) {
@@ -53,7 +53,7 @@ class App {
       || !this.selectEl) {
       return
     }
-    const { pageY: top, pageX: left } = e
+    const { pageY: top, pageX: left } = e;
     this.resetAnchor();
     gsap.to(this.cursorDotEl, { top, left, duration: 0.1 });
     gsap.to(this.cursorBGEl, { top, left, duration: 0.3, ease: 'sine.out' });
@@ -61,7 +61,7 @@ class App {
   }
 
   handleClickBtnListEl(e: MouseEvent) {
-    e.preventDefault()
+    e.preventDefault();
   }
 
   handleMouseEnterBtnListEl() {
@@ -69,10 +69,10 @@ class App {
       return
     }
     if (!this.cursorBGEl.classList.contains('active')) {
-      this.cursorBGEl.classList.add('active')
+      this.cursorBGEl.classList.add('active');
     }
     if (!this.selectEl.classList.contains('active')) {
-      this.selectEl.classList.add('active')
+      this.selectEl.classList.add('active');
     }
   }
 
@@ -81,10 +81,10 @@ class App {
       return
     }
     if (this.cursorBGEl.classList.contains('active')) {
-      this.cursorBGEl.classList.remove('active')
+      this.cursorBGEl.classList.remove('active');
     }
     if (this.selectEl.classList.contains('active')) {
-      this.selectEl.classList.remove('active')
+      this.selectEl.classList.remove('active');
     }
   }
 }

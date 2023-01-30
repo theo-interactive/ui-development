@@ -61,7 +61,7 @@ class App {
         itemEl.classList.remove('selected');
       });
       parentEl.classList.add('selected');
-      this.theme = theme
+      this.theme = theme;
       this.setTheme();
     }
   }

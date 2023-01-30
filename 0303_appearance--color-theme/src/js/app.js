@@ -24,7 +24,7 @@ const APP = {
     this.setTheme();
   },
   setTheme() {
-    const { documentElement: htmlEl } = document
+    const { documentElement: htmlEl } = document;
     THEMES.forEach((theme) => {
       htmlEl.classList.remove(`theme-${theme}`);
     });
@@ -33,7 +33,7 @@ const APP = {
   },
   handleClickBtnThemeMenuEl(e) {
     e.preventDefault();
-    const el = e.currentTarget
+    const el = e.currentTarget;
     const parentEl = el.parentElement;
     const theme = el.getAttribute('href').replace('#', '');
     if (!parentEl.classList.contains('selected')) {
@@ -41,7 +41,7 @@ const APP = {
         itemEl.classList.remove('selected');
       });
       parentEl.classList.add('selected');
-      this._theme = theme
+      this._theme = theme;
       this.setTheme();
     }
   }
