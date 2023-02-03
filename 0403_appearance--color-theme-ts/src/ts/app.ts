@@ -27,7 +27,7 @@ class App {
     if (!this.btnThemeMenuEls) {
       return
     }
-    this.btnThemeMenuEls.forEach((el) => {
+    this.btnThemeMenuEls.forEach((el: HTMLAnchorElement) => {
       el.addEventListener('click', this.handleClickBtnThemeMenuEl.bind(this));
     });
   }
@@ -41,7 +41,7 @@ class App {
       return
     }
     const { documentElement: htmlEl } = document;
-    THEMES.forEach((theme) => {
+    THEMES.forEach((theme: string) => {
       htmlEl.classList.remove(`theme-${theme}`);
     });
     htmlEl.classList.add(`theme-${this.theme}`);
@@ -57,7 +57,7 @@ class App {
     const parentEl: HTMLLIElement = el.parentElement as HTMLLIElement;
     const theme: string = el.getAttribute('href')!.replace('#', '');
     if (!parentEl.classList.contains('selected')) {
-      this.themeMenuItemEls.forEach((itemEl) => {
+      this.themeMenuItemEls.forEach((itemEl: HTMLLIElement) => {
         itemEl.classList.remove('selected');
       });
       parentEl.classList.add('selected');

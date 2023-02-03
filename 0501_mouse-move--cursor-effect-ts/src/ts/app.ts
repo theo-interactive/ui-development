@@ -25,7 +25,7 @@ class App {
       return
     }
     window.addEventListener('mousemove', this.handleMouseMoveWindow.bind(this));
-    this.btnListEls.forEach((el) => {
+    this.btnListEls.forEach((el: HTMLAnchorElement) => {
       el.addEventListener('click', this.handleClickBtnListEl.bind(this));
       el.addEventListener('mouseenter', this.handleMouseEnterBtnListEl.bind(this));
       el.addEventListener('mouseleave', this.handleMouseLeaveBtnListEl.bind(this));

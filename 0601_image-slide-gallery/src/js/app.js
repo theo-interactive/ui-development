@@ -27,7 +27,7 @@ const APP = {
         this.btnPaddlePreviousEl = this.paddleNavEl.querySelector('button.btn-paddle.paddle-previous');
         this.btnPaddleNextEl = this.paddleNavEl.querySelector('button.btn-paddle.paddle-next');
         this.dotNavEl = this.imageGalleryEl.querySelector('.dot-nav');
-        this.btnDotEl = this.dotNavEl.querySelectorAll('button.btn-dot');
+        this.btnDotEls = this.dotNavEl.querySelectorAll('button.btn-dot');
         this.thumbnailsEl = document.querySelector('#gallery-thumbnails');
         this.btnThumbnailEls = this.thumbnailsEl.querySelectorAll('button.btn-thumbnail');
     },
@@ -44,7 +44,7 @@ const APP = {
         this._exId = this._cuId;
         this._max = this.imageItemEls.length;
         this.resizeGallery();
-        this.changeImage()
+        this.changeImage();
     },
     resizeGallery() {
         this._galleryWidth = this._imageWidth * this._max;
@@ -53,7 +53,7 @@ const APP = {
     },
     autoPlayGallery() {
         clearInterval(this._timer);
-        this._timer = setTimeout(this.rollingGallery.bind(this), this._time * 1000)
+        this._timer = setTimeout(this.rollingGallery.bind(this), this._time * 1000);
     },
     rollingGallery() {
         if (this._isAni) {
@@ -72,7 +72,7 @@ const APP = {
     },
     changeImage(withAni = false) {
         clearInterval(this._timer);
-        gsap.killTweensOf(this.imageContainerEl)
+        gsap.killTweensOf(this.imageContainerEl);
         const x = this._imageWidth * this._cuId * -1;
         this.checkDotNav();
         if (!withAni) {
@@ -85,9 +85,9 @@ const APP = {
             return
         }
         this._isAni = true;
-        const duration = this._baseDuration + this._addDuration * Math.abs(this._cuId - this._exId)
-        const ease = 'power2.inOut'
-        // const ease = this._cuId > this._exId ? 'power2.out' : 'power2.in'
+        const duration = this._baseDuration + this._addDuration * Math.abs(this._cuId - this._exId);
+        const ease = 'power2.inOut';
+        // const ease = this._cuId > this._exId ? 'power2.out' : 'power2.in';
         gsap.to(this.imageContainerEl, {
             x, duration, ease, onComplete: () => {
                 this.checkPaddleNav();
@@ -101,32 +101,32 @@ const APP = {
     checkPaddleNav() {
         if (this._cuId === 0) {
             if (!this.btnPaddlePreviousEl.disabled) {
-                this.btnPaddlePreviousEl.disabled = true
+                this.btnPaddlePreviousEl.disabled = true;
             }
-            this.btnPaddleNextEl.disabled = false
+            this.btnPaddleNextEl.disabled = false;
             return
         }
         if (this._cuId === this._max - 1) {
-            this.btnPaddlePreviousEl.disabled = false
+            this.btnPaddlePreviousEl.disabled = false;
             if (!this.btnPaddleNextEl.disabled) {
-                this.btnPaddleNextEl.disabled = true
+                this.btnPaddleNextEl.disabled = true;
             }
             return
         }
-        this.btnPaddlePreviousEl.disabled = false
-        this.btnPaddleNextEl.disabled = false
+        this.btnPaddlePreviousEl.disabled = false;
+        this.btnPaddleNextEl.disabled = false;
     },
     checkDotNav() {
-        this.btnDotEl.forEach((el, idx) => {
+        this.btnDotEls.forEach((el, idx) => {
             if (idx === this._cuId) {
                 if (!el.classList.contains('selected')) {
-                    el.classList.add('selected')
+                    el.classList.add('selected');
                 }
                 el.classList.add('selected');
                 return
             }
             if (el.classList.contains('selected')) {
-                el.classList.remove('selected')
+                el.classList.remove('selected');
             }
         });
     },
@@ -134,13 +134,13 @@ const APP = {
         this.btnThumbnailEls.forEach((el, idx) => {
             if (idx === this._cuId) {
                 if (!el.classList.contains('selected')) {
-                    el.classList.add('selected')
+                    el.classList.add('selected');
                 }
                 el.classList.add('selected');
                 return
             }
             if (el.classList.contains('selected')) {
-                el.classList.remove('selected')
+                el.classList.remove('selected');
             }
         });
     },
@@ -149,7 +149,7 @@ const APP = {
         if (this._isAni) {
             return
         }
-        const {currentTarget: el} = e
+        const { currentTarget: el } = e;
         let id = this._exId;
         if (el.classList.contains('paddle-previous')) {
             id -= 1;
@@ -173,7 +173,7 @@ const APP = {
         if (this._isAni) {
             return
         }
-        const {currentTarget: el} = e
+        const { currentTarget: el } = e;
         if (el.classList.contains('selected')) {
             return
         }

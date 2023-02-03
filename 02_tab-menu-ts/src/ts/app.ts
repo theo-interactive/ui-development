@@ -21,7 +21,7 @@ class App {
     if (!this.btnTabMenuEls) {
       return
     }
-    this.btnTabMenuEls.forEach((el) => {
+    this.btnTabMenuEls.forEach((el: HTMLAnchorElement) => {
       el.addEventListener('click', this.handleClickBtnTabMenuEl.bind(this));
     });
   }
