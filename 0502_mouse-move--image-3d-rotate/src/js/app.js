@@ -30,8 +30,8 @@ const APP = {
     },
     handleMouseMoveFigureEl(e) {
         const { clientX, clientY, currentTarget } = e;
-        const { width, height} = currentTarget.getBoundingClientRect();
-        const { top, left} = this.figureEl.getBoundingClientRect();
+        const { width, height } = currentTarget.getBoundingClientRect();
+        const { top, left } = this.figureEl.getBoundingClientRect();
         const { pageXOffset: xOffset, pageYOffset: yOffset } = window;
         const x = clientX - left + xOffset;
         const y = clientY - top + yOffset;

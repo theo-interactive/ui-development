@@ -54,8 +54,8 @@ class App {
     }
     const { clientX, clientY, currentTarget } = e;
     const el = currentTarget as HTMLAnchorElement;
-    const { width, height} = el.getBoundingClientRect();
-    const { top, left} = this.figureEl.getBoundingClientRect();
+    const { width, height } = el.getBoundingClientRect();
+    const { top, left } = this.figureEl.getBoundingClientRect();
     const { pageXOffset: xOffset, pageYOffset: yOffset } = window;
     const x = clientX - left + xOffset;
     const y = clientY - top + yOffset;
