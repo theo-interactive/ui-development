@@ -133,7 +133,18 @@ class App {
       clearInterval(this.timer);
     }
     gsap.killTweensOf(this.imageContainerEl);
-    const x = INFINITE ? IMAGE_WIDTH * (this.cuId + 1) * -1 : IMAGE_WIDTH * this.cuId * -1;
+    let x = INFINITE ? IMAGE_WIDTH * (this.cuId + 1) * -1 : IMAGE_WIDTH * this.cuId * -1;
+    // const direction = this.cuId > this.exId;
+    const duration = BASE_DURATION + ADD_DURATION * Math.abs(this.cuId - this.exId);
+    if (INFINITE && this.max !== null) {
+      if (this.cuId < 0) {
+        this.cuId = this.max - 1;
+      } else if (this.cuId > this.max - 1) {
+        this.cuId = 0
+      }
+    }
+    const ease = 'power2.inOut';
+    // const ease = direction ? 'power2.out' : 'power2.in';
     this.checkDotNav();
     if (!withAni) {
       gsap.set(this.imageContainerEl, { x });
@@ -145,10 +156,12 @@ class App {
       return
     }
     this.isAni = true;
-    const duration = BASE_DURATION + ADD_DURATION * Math.abs(this.cuId - this.exId);
-    const ease = 'power2.inOut';
     gsap.to(this.imageContainerEl, {
       x, duration, ease, onComplete: () => {
+        if (INFINITE && this.imageContainerEl) {
+          x = IMAGE_WIDTH * (this.cuId + 1) * -1
+          gsap.set(this.imageContainerEl,  { x })
+        }
         this.checkPaddleNav();
         this.checkThumbnails();
         this.exId = this.cuId;
@@ -247,7 +260,6 @@ class App {
         id = this.max - 1;
       }
     }
-
     if (this.exId !== id) {
       this.cuId = id;
       this.checkPaddleNav();
