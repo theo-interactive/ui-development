@@ -379,10 +379,12 @@ select, button {
 
 .image-gallery .dot-nav li button.btn-dot {
     overflow: hidden;
+    display: inline-block;
     width: 8px;
     height: 8px;
     background-color: var(--color-dot);
     border-radius: 50%;
+    vertical-align: top;
     text-indent: -9999rem;
     line-height: 8px;
     user-select: none;
@@ -426,6 +428,7 @@ select, button {
 .image-gallery-thumbnails li button.btn-thumbnail {
     overflow: hidden;
     position: relative;
+    display: block;
     width: 120px;
     height: 75px;
     cursor: pointer;

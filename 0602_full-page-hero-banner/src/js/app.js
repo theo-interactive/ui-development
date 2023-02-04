@@ -1,3 +1,5 @@
+gsap.registerPlugin(TextPlugin);
+
 const APP = {
     _infinite: true,
     _isAni: false,
@@ -18,6 +20,7 @@ const APP = {
 
     init() {
         this.layout();
+        this.create();
         this.addEvent();
         this.reset();
     },
@@ -31,7 +34,21 @@ const APP = {
         this.btnPaddlePreviousEl = this.paddleNavEl.querySelector('button.btn-paddle.paddle-previous');
         this.btnPaddleNextEl = this.paddleNavEl.querySelector('button.btn-paddle.paddle-next');
         this.dotNavEl = this.heroBannerEl.querySelector('.dot-nav');
-        this.btnDotEls = this.dotNavEl.querySelectorAll('button.btn-dot');
+        this.dotNavListEl = this.dotNavEl.querySelector('ul');
+    },
+    create() {
+        this._max = this.bannerItemEls.length;
+        this.dotNavListEl.innerText = '';
+        [...Array(this._max).keys()].forEach((idx) => {
+            const listItemEl = document.createElement('li');
+            const btnDotEl = document.createElement('button');
+            btnDotEl.type = 'button'
+            btnDotEl.classList.add('btn-dot');
+            btnDotEl.innerText = `Item ${idx}`;
+            listItemEl.appendChild(btnDotEl);
+            this.dotNavListEl.appendChild(listItemEl);
+        });
+        this.btnDotEls = this.dotNavListEl.querySelectorAll('button.btn-dot');
     },
     addEvent() {
         window.addEventListener('resize', this.handleResizeWindow.bind(this));
@@ -45,7 +62,6 @@ const APP = {
     reset() {
         this._cuId = 0;
         this._exId = this._cuId;
-        this._max = this.bannerItemEls.length;
         if (this._infinite) {
             this.setInfiniteBanner();
         }
@@ -69,7 +85,7 @@ const APP = {
         const { innerWidth: width, innerHeight: height } = window
         this._imageWidth = width
         this._imageHeight = Math.round(this._originalImageHeight * width / this._originalImageWidth);
-        if (this._imageHeight >= height) {
+        if (this._imageHeight <= height) {
             this._imageHeight = height
             this._imageWidth = Math.round(this._originalImageWidth * height / this._originalImageHeight);
         }
@@ -81,6 +97,10 @@ const APP = {
         gsap.set(this.heroBannerEl, { width: this._bannerWidth, height: this._bannerHeight });
         gsap.set(this.bannerContainerEl, { width: this._containerWidth, height: this._bannerHeight });
         gsap.set(this.bannerItemEls, { width: this._bannerWidth, height: this._bannerHeight });
+        this.bannerItemEls.forEach((el) => {
+            const imageEl = el.querySelector('.image-area figure img');
+            gsap.set(imageEl, { width: this._imageWidth, height: this._imageHeight, marginTop, marginLeft });
+        });
     },
     autoPlayBanner() {
         clearInterval(this._timer);
@@ -91,7 +111,7 @@ const APP = {
             return
         }
         let id = this._exId + 1;
-        if (id > this._max - 1) {
+        if (!this._infinite && id > this._max - 1) {
             id = 0;
         }
         if (this._exId !== id) {
@@ -106,10 +126,13 @@ const APP = {
         let x = this._infinite ? this._bannerWidth * (this._cuId + 1) * -1 : this._bannerWidth * this._cuId * -1;
         // const direction = this._cuId > this._exId;
         const duration = this._baseDuration + this._addDuration * Math.abs(this._cuId - this._exId);
+        let cloneItemEl = null
         if (this._infinite) {
             if (this._cuId < 0) {
+                cloneItemEl = this.bannerItemEls.item(0);
                 this._cuId = this._max - 1;
             } else if (this._cuId > this._max - 1) {
+                cloneItemEl = this.bannerItemEls.item(this._max + 1);
                 this._cuId = 0
             }
         }
@@ -121,10 +144,12 @@ const APP = {
             this.checkPaddleNav();
             this._exId = this._cuId;
             this._isAni = false;
-            // this.autoPlayBanner();
+            this.autoPlayBanner();
             return
         }
         this._isAni = true;
+        const itemEl = this._infinite ? this.bannerItemEls.item(this._cuId + 1) : this.bannerItemEls.item(this._cuId);
+        this.itemContentInit(itemEl, cloneItemEl);
         gsap.to(this.bannerContainerEl, {
             x, duration, ease, onComplete: () => {
                 if (this._infinite) {
@@ -132,9 +157,84 @@ const APP = {
                     gsap.set(this.bannerContainerEl,  { x })
                 }
                 this.checkPaddleNav();
-                this._exId = this._cuId;
-                this._isAni = false;
-                // this.autoPlayBanner();
+                this.itemContentAppear(itemEl, cloneItemEl, () => {
+                    this._exId = this._cuId;
+                    this._isAni = false;
+                    this.autoPlayBanner();
+                });
+            }
+        });
+    },
+    itemContentInit(el, cloneEl = null) {
+        const eyebrowEl = el.querySelector('.eyebrow');
+        const headlineEl = el.querySelector('.headline');
+        const headlineSpanEls = headlineEl.querySelectorAll('span');
+        const copyEl = el.querySelector('.copy');
+        gsap.set(eyebrowEl, { x: 20, autoAlpha: 0 });
+        headlineSpanEls.forEach((spanEl) => {
+            spanEl.classList.remove('active');
+            spanEl.dataset.text = spanEl.innerText
+        });
+        gsap.set(headlineSpanEls, { text: '' });
+        gsap.set(headlineEl, { x: 40, autoAlpha: 0 });
+        gsap.set(copyEl, { y: 20, autoAlpha: 0 });
+        if (cloneEl !== null) {
+            const cloneEyebrowEl = cloneEl.querySelector('.eyebrow');
+            const cloneHeadlineEl = cloneEl.querySelector('.headline');
+            const cloneCopyEl = cloneEl.querySelector('.copy');
+            gsap.set(cloneEyebrowEl, { autoAlpha: 0 });
+            gsap.set(cloneHeadlineEl, { autoAlpha: 0 });
+            gsap.set(cloneCopyEl, { autoAlpha: 0 });
+        }
+    },
+    itemContentAppear(el, cloneEl = null, callback) {
+        const eyebrowEl = el.querySelector('.eyebrow');
+        const headlineEl = el.querySelector('.headline');
+        const headlineSpanEls = headlineEl.querySelectorAll('span');
+        const copyEl = el.querySelector('.copy');
+        const tl = gsap.timeline();
+        tl.addLabel('first')
+            .to(eyebrowEl, { x: 0, autoAlpha: 1, duration: 0.15, ease: 'sine.out' })
+            .addLabel('second', '-=0.1')
+            .to(headlineEl, { x: 0, autoAlpha: 1, duration: 0.2, ease: 'sine.inOut' }, 'second')
+            .addLabel('third', '-=0.05')
+            .to(headlineSpanEls, {
+                text: (i, spanEl) => {
+                    return spanEl.dataset.text
+                },
+                duration: (idx, spanEl) => {
+                    return spanEl.dataset.text.length * 0.02
+                },
+                stagger: 0.1,
+                // stagger: {
+                //     each: 0.1,
+                //     onComplete: function() {
+                //         const spanEl = this.targets()[0];
+                //         spanEl.classList.add('active');
+                //     }
+                // },
+                onComplete: () => {
+                    headlineSpanEls.forEach((spanEl) => {
+                        spanEl.classList.add('active');
+                    });
+                }
+            }, 'second')
+            .to(copyEl, { y: 0, autoAlpha: 1, duration: 0.2, ease: 'circ.out' }, 'third')
+        tl.eventCallback('onComplete', () => {
+            gsap.set(eyebrowEl, { clearProps: 'all' });
+            gsap.set(headlineEl, { clearProps: 'all' });
+            gsap.set(headlineSpanEls, { clearProps: 'all' });
+            gsap.set(copyEl, { clearProps: 'all' });
+            if (cloneEl !== null) {
+                const cloneEyebrowEl = cloneEl.querySelector('.eyebrow');
+                const cloneHeadlineEl = cloneEl.querySelector('.headline');
+                const cloneCopyEl = cloneEl.querySelector('.copy');
+                gsap.set(cloneEyebrowEl, { clearProps: 'all' });
+                gsap.set(cloneHeadlineEl, { clearProps: 'all' });
+                gsap.set(cloneCopyEl, { clearProps: 'all' });
+            }
+            if (callback) {
+                callback();
             }
         });
     },
@@ -212,8 +312,20 @@ const APP = {
             this.changeImage(true);
         }
     },
-    handleClickBtnDotEl() {
-
+    handleClickBtnDotEl(e) {
+        e.preventDefault();
+        if (this._isAni) {
+            return
+        }
+        const { currentTarget: el } = e;
+        if (el.classList.contains('selected')) {
+            return
+        }
+        const id = [...this.btnDotEls].indexOf(el);
+        if (this._exId !== id) {
+            this._cuId = id;
+            this.changeImage(true);
+        }
     }
 }
 
