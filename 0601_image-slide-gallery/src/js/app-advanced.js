@@ -1,7 +1,9 @@
 const APP = {
+    _infinite: false,
     _isAni: false,
     _galleryWidth: null,
     _galleryHeight: null,
+    _containerWidth: null,
     _imageWidth: 1000,
     _imageHeight: 625,
     _baseDuration: 0.3,
@@ -43,13 +45,29 @@ const APP = {
         this._cuId = 0;
         this._exId = this._cuId;
         this._max = this.imageItemEls.length;
+        if (this._infinite) {
+            this.setInfiniteGallery();
+        }
         this.resizeGallery();
         this.changeImage();
     },
+    setInfiniteGallery() {
+        if (!this._infinite) {
+            return
+        }
+        const firstCloneItemEl = this.imageItemEls.item(0).cloneNode(true)
+        const lastCloneItemEl = this.imageItemEls.item(this._max - 1).cloneNode(true)
+        firstCloneItemEl.classList.add('clone');
+        lastCloneItemEl.classList.add('clone');
+        this.imageContainerEl.insertBefore(lastCloneItemEl, this.imageItemEls.item(0));
+        this.imageContainerEl.appendChild(firstCloneItemEl);
+        this.imageItemEls = this.imageContainerEl.querySelectorAll('.image-item');
+    },
     resizeGallery() {
-        this._galleryWidth = this._imageWidth * this._max;
+        this._galleryWidth = this._imageWidth;
         this._galleryHeight = this._imageHeight;
-        gsap.set(this.imageContainerEl, { width: this._galleryWidth });
+        this._containerWidth = this._infinite ? this._imageWidth * (this._max + 2) : this._imageWidth * this._max;
+        gsap.set(this.imageContainerEl, { width: this._containerWidth });
     },
     autoPlayGallery() {
         clearInterval(this._timer);
@@ -73,7 +91,18 @@ const APP = {
     changeImage(withAni = false) {
         clearInterval(this._timer);
         gsap.killTweensOf(this.imageContainerEl);
-        const x = this._imageWidth * this._cuId * -1;
+        let x = this._infinite ? this._imageWidth * (this._cuId + 1) * -1 : this._imageWidth * this._cuId * -1;
+        // const direction = this._cuId > this._exId;
+        const duration = this._baseDuration + this._addDuration * Math.abs(this._cuId - this._exId);
+        if (this._infinite) {
+            if (this._cuId < 0) {
+                this._cuId = this._max - 1;
+            } else if (this._cuId > this._max - 1) {
+                this._cuId = 0
+            }
+        }
+        const ease = 'power2.inOut';
+        // const ease = direction ? 'power2.out' : 'power2.in';
         this.checkDotNav();
         if (!withAni) {
             gsap.set(this.imageContainerEl, { x });
@@ -85,12 +114,12 @@ const APP = {
             return
         }
         this._isAni = true;
-        // const direction = this.cuId > this.exId;
-        const duration = this._baseDuration + this._addDuration * Math.abs(this._cuId - this._exId);
-        const ease = 'power2.inOut';
-        // const ease = direction ? 'power2.out' : 'power2.in';
         gsap.to(this.imageContainerEl, {
             x, duration, ease, onComplete: () => {
+                if (this._infinite) {
+                    x = this._imageWidth * (this._cuId + 1) * -1
+                    gsap.set(this.imageContainerEl,  { x })
+                }
                 this.checkPaddleNav();
                 this.checkThumbnails();
                 this._exId = this._cuId;
@@ -100,6 +129,11 @@ const APP = {
         });
     },
     checkPaddleNav() {
+        if (this._infinite) {
+            this.btnPaddlePreviousEl.disabled = false;
+            this.btnPaddleNextEl.disabled = false;
+            return
+        }
         if (this._cuId === 0) {
             if (!this.btnPaddlePreviousEl.disabled) {
                 this.btnPaddlePreviousEl.disabled = true;
@@ -158,10 +192,18 @@ const APP = {
         if (el.classList.contains('paddle-next')) {
             id += 1;
         }
-        if (id < 0) {
-            id = 0;
-        } else if (id > this._max - 1) {
-            id = this._max - 1;
+        if (this._infinite) {
+            if (id < -1) {
+                id = this._max - 1;
+            } else if (id > this._max) {
+                id = 0;
+            }
+        } else {
+            if (id < 0) {
+                id = 0;
+            } else if (id > this._max - 1) {
+                id = this._max - 1;
+            }
         }
         if (this._exId !== id) {
             this._cuId = id;

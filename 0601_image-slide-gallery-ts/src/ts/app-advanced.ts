@@ -3,7 +3,6 @@ import gsap from 'gsap';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import '@fortawesome/fontawesome-free/js/all.min';
 
-
 const INFINITE: boolean = true;
 const IMAGE_WIDTH: number = 1000;
 const IMAGE_HEIGHT: number = 625;
@@ -74,15 +73,31 @@ class App {
     this.cuId = 0;
     this.exId = this.cuId;
     this.max = this.imageItemEls.length;
+    if (INFINITE) {
+      this.setInfiniteGallery();
+    }
     this.resizeGallery();
     this.changeImage();
+  }
+
+  setInfiniteGallery() {
+    if (!INFINITE || this.max === null || !this.imageContainerEl || !this.imageItemEls) {
+      return
+    }
+    const firstCloneItemEl = this.imageItemEls.item(0).cloneNode(true) as HTMLDivElement
+    const lastCloneItemEl = this.imageItemEls.item(this.max - 1).cloneNode(true) as HTMLDivElement
+    firstCloneItemEl.classList.add('clone');
+    lastCloneItemEl.classList.add('clone');
+    this.imageContainerEl.insertBefore(lastCloneItemEl, this.imageItemEls.item(0));
+    this.imageContainerEl.appendChild(firstCloneItemEl);
+    this.imageItemEls = this.imageContainerEl.querySelectorAll('.image-item');
   }
 
   resizeGallery() {
     if (this.max === null || !this.imageContainerEl) {
       return
     }
-    this.galleryWidth = IMAGE_WIDTH * this.max;
+    this.galleryWidth = INFINITE ? IMAGE_WIDTH * (this.max + 2) : IMAGE_WIDTH * this.max;
     this.galleryHeight = IMAGE_HEIGHT;
     gsap.set(this.imageContainerEl, { width: this.galleryWidth });
   }
@@ -118,7 +133,18 @@ class App {
       clearInterval(this.timer);
     }
     gsap.killTweensOf(this.imageContainerEl);
-    let x = IMAGE_WIDTH * this.cuId * -1;
+    let x = INFINITE ? IMAGE_WIDTH * (this.cuId + 1) * -1 : IMAGE_WIDTH * this.cuId * -1;
+    // const direction = this.cuId > this.exId;
+    const duration = BASE_DURATION + ADD_DURATION * Math.abs(this.cuId - this.exId);
+    if (INFINITE && this.max !== null) {
+      if (this.cuId < 0) {
+        this.cuId = this.max - 1;
+      } else if (this.cuId > this.max - 1) {
+        this.cuId = 0
+      }
+    }
+    const ease = 'power2.inOut';
+    // const ease = direction ? 'power2.out' : 'power2.in';
     this.checkDotNav();
     if (!withAni) {
       gsap.set(this.imageContainerEl, { x });
@@ -130,12 +156,12 @@ class App {
       return
     }
     this.isAni = true;
-    // const direction = this.cuId > this.exId;
-    const duration = BASE_DURATION + ADD_DURATION * Math.abs(this.cuId - this.exId);
-    const ease = 'power2.inOut';
-    // const ease = direction ? 'power2.out' : 'power2.in';
     gsap.to(this.imageContainerEl, {
       x, duration, ease, onComplete: () => {
+        if (INFINITE && this.imageContainerEl) {
+          x = IMAGE_WIDTH * (this.cuId + 1) * -1
+          gsap.set(this.imageContainerEl,  { x })
+        }
         this.checkPaddleNav();
         this.checkThumbnails();
         this.exId = this.cuId;
@@ -148,6 +174,11 @@ class App {
   checkPaddleNav() {
     if (this.max === null || !this.btnPaddlePreviousEl || !this.btnPaddleNextEl) {
       return;
+    }
+    if (INFINITE) {
+      this.btnPaddlePreviousEl.disabled = false;
+      this.btnPaddleNextEl.disabled = false;
+      return
     }
     if (this.cuId === 0) {
       if (!this.btnPaddlePreviousEl.disabled) {
@@ -216,10 +247,18 @@ class App {
     if (el.classList.contains('paddle-next')) {
       id += 1;
     }
-    if (id < 0) {
-      id = 0;
-    } else if (id > this.max - 1) {
-      id = this.max - 1;
+    if (INFINITE) {
+      if (id < -1) {
+        id = this.max - 1;
+      } else if (id > this.max) {
+        id = 0;
+      }
+    } else {
+      if (id < 0) {
+        id = 0;
+      } else if (id > this.max - 1) {
+        id = this.max - 1;
+      }
     }
     if (this.exId !== id) {
       this.cuId = id;

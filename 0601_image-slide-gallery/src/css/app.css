@@ -16,7 +16,6 @@
     --ease-sine-in-out: cubic-bezier(0.445, 0.050, 0.550, 0.950)
 }
 
-
 /*-- Reset. --*/
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, textarea, p, blockquote, th, td, input, select, textarea, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
     margin: 0;
@@ -305,7 +304,8 @@ select, button {
     -webkit-user-drag: none;
 }
 
-.image-gallery .paddle-nav {}
+.image-gallery .paddle-nav {
+}
 
 .image-gallery .paddle-nav button.btn-paddle {
     display: -webkit-box;

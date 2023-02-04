@@ -7,6 +7,8 @@
     --color-gray: #666666;
     --color-paddle: rgba(255, 255, 255, 0.45);
     --color-dot: rgba(255, 255, 255, 0.65);
+    --color-dim: rgba(0, 0, 0, 0.4);
+    --color-highlight: #6667ab;
     --color-selected: #bb2649;
     --color-shadow: rgba(0, 0, 0, 0.2);
     --ease-circ-out: cubic-bezier(0.215, 0.610, 0.355, 1.000);
@@ -15,6 +17,7 @@
     --ease-sine-out: cubic-bezier(0.390, 0.575, 0.565, 1.000);
     --ease-sine-in-out: cubic-bezier(0.445, 0.050, 0.550, 0.950)
 }
+
 
 /*-- Reset. --*/
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, textarea, p, blockquote, th, td, input, select, textarea, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
@@ -261,40 +264,60 @@ select, button {
     justify-content: center;
 }
 
-.image-gallery {
+.hero-banner {
     position: relative;
-    width: 1000px;
-    height: 625px;
+    width: 100%;
+    height: 100%;
     margin-right: auto;
     margin-left: auto;
+    counter-reset: item
 }
 
-.image-gallery .image-wrap {
+.hero-banner .banner-wrap {
     overflow: hidden;
     width: 100%;
     height: 100%;
 }
 
-.image-gallery .image-container {
+.hero-banner .banner-container {
     overflow: hidden;
     display: -webkit-box;
     display: flex;
     height: 100%;
 }
 
-.image-gallery .image-container .image-item {
+.hero-banner .banner-container .banner-item {
     position: relative;
     height: 100%;
     flex-shrink: 0;
 }
 
-.image-gallery .image-container .image-item figure {
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
+.hero-banner .banner-container .banner-item .image-area {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }
 
-.image-gallery .image-container .image-item figure img {
+.hero-banner .banner-container .banner-item .image-area::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: var(--color-dim);
+}
+
+.hero-banner .banner-container .banner-item .image-area figure {
+    overflow: hidden;
+    width: 100%;
+    height: 100%
+}
+
+.hero-banner .banner-container .banner-item .image-area figure img {
     display: inline-block;
     width: 100%;
     vertical-align: top;
@@ -304,10 +327,112 @@ select, button {
     -webkit-user-drag: none;
 }
 
-.image-gallery .paddle-nav {
+.hero-banner .banner-container .banner-item .typography-area {
+    position: relative;
+    display: flex;
+    max-width: 1024px;
+    height: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 32px;
+    padding-left: 32px;
+    color: var(--color-white);
+    flex-direction: column;
+    justify-content: center;
 }
 
-.image-gallery .paddle-nav button.btn-paddle {
+.hero-banner .banner-item .typography-area p.eyebrow {
+    position: relative;
+    margin-left: 4px;
+    text-transform: uppercase;
+    font-size: 16px;
+    line-height: 22px;
+    align-self: flex-start;
+}
+
+.hero-banner .banner-item .typography-area p.eyebrow span {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.hero-banner .banner-item .typography-area p.eyebrow span.count {
+    position: relative;
+    padding-left: 16px;
+}
+
+.hero-banner .banner-item .typography-area p.eyebrow span + span.count {
+    margin-left: 8px;
+}
+
+.hero-banner .banner-item .typography-area p.eyebrow span.count::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 10px;
+    height: 0;
+    border-bottom: 1px solid var(--color-white);
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -o-transform: translateY(-50%)
+}
+
+.hero-banner .banner-item .typography-area p.eyebrow span.count::after {
+    content: '0' counter(item)
+}
+
+.hero-banner .banner-item:not(.clone) .typography-area p.eyebrow span.count::after {
+    counter-increment: item
+}
+
+.hero-banner .banner-item .typography-area p.eyebrow:before {
+    content: '';
+    display: block;
+    position: absolute;
+    right: -3px;
+    bottom: 0;
+    left: -5px;
+    border: 6px solid var(--color-highlight);
+    transform: skewX(-6deg);
+    -webkit-transform: skewX(-6deg);
+    -moz-transform: skewX(-6deg);
+    -o-transform: skewX(-6deg)
+}
+
+.hero-banner .banner-item .typography-area p.eyebrow span {
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+}
+
+.hero-banner .banner-item .typography-area p.eyebrow + h2.headline {
+    margin-top: 14px;
+}
+
+.hero-banner .banner-item .typography-area h2.headline {
+    /*text-transform: capitalize;*/
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 50px;
+}
+
+.hero-banner .banner-item .typography-area h2.headline + p.copy {
+    margin-top: 20px;
+}
+
+.hero-banner .banner-item .typography-area p.copy {
+    padding-bottom: 20px;
+    font-family: garamond-premier-pro, 'Apple SD Gothic Neo', AppleSDGothicNeo, 'Malgun Gothic', '맑은 고딕', Roboto, 'Helvetica Neue', '애플 SD 산돌고딕 Neo', dotum, gulim, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 22px;
+}
+
+.hero-banner .paddle-nav {
+}
+
+.hero-banner .paddle-nav button.btn-paddle {
     display: -webkit-box;
     display: flex;
     position: absolute;
@@ -338,26 +463,26 @@ select, button {
     -o-transition: background-color 180ms ease-in-out, color 180ms ease-in-out
 }
 
-.image-gallery .paddle-nav button.btn-paddle:disabled {
+.hero-banner .paddle-nav button.btn-paddle:disabled {
     opacity: 0;
     cursor: default;
     pointer-events: none;
 }
 
-.image-gallery .paddle-nav button.btn-paddle:not(:disabled):hover {
+.hero-banner .paddle-nav button.btn-paddle:not(:disabled):hover {
     background-color: var(--color-selected);
     color: var(--color-white);
 }
 
-.image-gallery .paddle-nav button.btn-paddle.paddle-previous {
+.hero-banner .paddle-nav button.btn-paddle.paddle-previous {
     left: 20px
 }
 
-.image-gallery .paddle-nav button.btn-paddle.paddle-next {
+.hero-banner .paddle-nav button.btn-paddle.paddle-next {
     right: 20px
 }
 
-.image-gallery .dot-nav {
+.hero-banner .dot-nav {
     position: absolute;
     z-index: 100;
     right: 0;
@@ -365,19 +490,19 @@ select, button {
     left: 0;
 }
 
-.image-gallery .dot-nav ul {
+.hero-banner .dot-nav ul {
     display: -webkit-box;
     display: flex;
     justify-content: center;
 }
 
-.image-gallery .dot-nav li {
+.hero-banner .dot-nav li {
     padding-right: 6px;
     padding-left: 6px;
     line-height: 8px;
 }
 
-.image-gallery .dot-nav li button.btn-dot {
+.hero-banner .dot-nav li button.btn-dot {
     overflow: hidden;
     width: 8px;
     height: 8px;
@@ -394,36 +519,36 @@ select, button {
     -o-transition: background-color 180ms var(--ease-quad-in-out)
 }
 
-.image-gallery .dot-nav li button.btn-dot:disabled {
+.hero-banner .dot-nav li button.btn-dot:disabled {
     cursor: default;
 }
 
-.image-gallery .dot-nav li button.btn-dot.selected {
+.hero-banner .dot-nav li button.btn-dot.selected {
     background-color: var(--color-selected)
 }
 
-.image-gallery + .image-gallery-thumbnails {
+.hero-banner + .hero-banner-thumbnails {
     margin-top: 50px
 }
 
-.image-gallery-thumbnails {
+.hero-banner-thumbnails {
     margin-right: auto;
     margin-left: auto
 }
 
-.image-gallery-thumbnails ul {
+.hero-banner-thumbnails ul {
     display: -webkit-box;
     display: flex;
     margin-right: -15px;
     margin-left: -15px
 }
 
-.image-gallery-thumbnails li {
+.hero-banner-thumbnails li {
     padding-right: 15px;
     padding-left: 15px
 }
 
-.image-gallery-thumbnails li button.btn-thumbnail {
+.hero-banner-thumbnails li button.btn-thumbnail {
     overflow: hidden;
     position: relative;
     width: 120px;
@@ -431,8 +556,8 @@ select, button {
     cursor: pointer;
 }
 
-.image-gallery-thumbnails li button.btn-thumbnail::before,
-.image-gallery-thumbnails li button.btn-thumbnail::after {
+.hero-banner-thumbnails li button.btn-thumbnail::before,
+.hero-banner-thumbnails li button.btn-thumbnail::after {
     content: '';
     display: block;
     position: absolute;
@@ -444,7 +569,7 @@ select, button {
     box-sizing: border-box
 }
 
-.image-gallery-thumbnails li button.btn-thumbnail::before {
+.hero-banner-thumbnails li button.btn-thumbnail::before {
     background-color: transparent;
     transition: background-color 180ms ease-in-out;
     -webkit-transition: background-color 180ms ease-in-out;
@@ -452,7 +577,7 @@ select, button {
     -o-transition: background-color 180ms ease-in-out
 }
 
-.image-gallery-thumbnails li button.btn-thumbnail::after {
+.hero-banner-thumbnails li button.btn-thumbnail::after {
     border: 0 solid var(--color-selected);
     transition: border 180ms var(--ease-sine-out);
     -webkit-transition: border 180ms var(--ease-sine-out);
@@ -460,7 +585,7 @@ select, button {
     -o-transition: border 180ms var(--ease-sine-out)
 }
 
-.image-gallery-thumbnails li button.btn-thumbnail img {
+.hero-banner-thumbnails li button.btn-thumbnail img {
     display: inline-block;
     width: 100%;
     vertical-align: top;
@@ -474,41 +599,41 @@ select, button {
     -o-transition: -o-transform 500ms var(--ease-circ-out)
 }
 
-.image-gallery-thumbnails li button.btn-thumbnail.selected {
+.hero-banner-thumbnails li button.btn-thumbnail.selected {
     cursor: default
 }
 
-.image-gallery-thumbnails li button.btn-thumbnail.selected {
+.hero-banner-thumbnails li button.btn-thumbnail.selected {
 }
 
-.image-gallery-thumbnails li button.btn-thumbnail:hover::after,
-.image-gallery-thumbnails li button.btn-thumbnail.selected::after {
+.hero-banner-thumbnails li button.btn-thumbnail:hover::after,
+.hero-banner-thumbnails li button.btn-thumbnail.selected::after {
     border-width: 4px
 }
 
-.image-gallery-thumbnails li button.btn-thumbnail:hover::after,
-.image-gallery-thumbnails li button.btn-thumbnail.selected::after {
+.hero-banner-thumbnails li button.btn-thumbnail:hover::after,
+.hero-banner-thumbnails li button.btn-thumbnail.selected::after {
     transition: border 220ms var(--ease-quad-in-out);
     -webkit-transition: border 220ms var(--ease-quad-in-out);
     -moz-transition: border 220ms var(--ease-quad-in-out);
     -o-transition: border 220ms var(--ease-quad-in-out)
 }
 
-.image-gallery-thumbnails li button.btn-thumbnail:hover::before,
-.image-gallery-thumbnails li button.btn-thumbnail.selected::before {
+.hero-banner-thumbnails li button.btn-thumbnail:hover::before,
+.hero-banner-thumbnails li button.btn-thumbnail.selected::before {
     background-color: rgba(255, 255, 255, 0.1)
 }
 
-.image-gallery-thumbnails li button.btn-thumbnail:hover img,
-.image-gallery-thumbnails li button.btn-thumbnail.selected img {
+.hero-banner-thumbnails li button.btn-thumbnail:hover img,
+.hero-banner-thumbnails li button.btn-thumbnail.selected img {
     transform: scale(1.05);
     -webkit-transform: scale(1.05);
     -moz-transform: scale(1.05);
     -o-transform: scale(1.05)
 }
 
-.image-gallery-thumbnails li button.btn-thumbnail:hover img,
-.image-gallery-thumbnails li button.btn-thumbnail.selected img {
+.hero-banner-thumbnails li button.btn-thumbnail:hover img,
+.hero-banner-thumbnails li button.btn-thumbnail.selected img {
     transition: transform 800ms var(--ease-sine-in-out);
     -webkit-transition: -webkit-transform 800ms var(--ease-sine-in-out);
     -moz-transition: -moz-transform 800ms var(--ease-sine-in-out);
