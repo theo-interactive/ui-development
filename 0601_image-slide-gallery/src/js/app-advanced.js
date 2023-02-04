@@ -78,7 +78,7 @@ const APP = {
             return
         }
         let id = this._exId + 1;
-        if (id > this._max - 1) {
+        if (!this._infinite && id > this._max - 1) {
             id = 0;
         }
         if (this._exId !== id) {

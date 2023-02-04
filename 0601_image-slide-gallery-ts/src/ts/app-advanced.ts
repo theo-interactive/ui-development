@@ -114,7 +114,7 @@ class App {
       return
     }
     let id = this.exId + 1;
-    if (id > this.max - 1) {
+    if (!INFINITE && id > this.max - 1) {
       id = 0;
     }
     if (this.exId !== id) {
