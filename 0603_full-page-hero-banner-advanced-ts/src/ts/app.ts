@@ -6,19 +6,32 @@ import '@fortawesome/fontawesome-free/js/all.min';
 
 gsap.registerPlugin(TextPlugin);
 
-const INFINITE: boolean = true;
+enum LayoutType {
+  horizontal = 'horizontal',
+  vertical = 'vertical'
+}
+
+type Pos = {
+  startX: number
+  startY: number
+  endX: number
+  endY: number
+}
+
 const ORIGINAL_IMAGE_WIDTH: number = 1200;
 const ORIGINAL_IMAGE_HEIGHT: number = 800;
-const BASE_DURATION: number = 0.3;
-const ADD_DURATION: number = 0.1;
+const CU_DURATION: number = 0.6;
+const EX_DURATION: number = 1.2;
+const CU_EASE: string = 'power2.inOut';
+const EX_EASE: string = 'sine.in';
 const TIME: number = 6;
 
 class App {
 
+  layoutType: LayoutType = LayoutType.horizontal;
   isAni: boolean = false;
   bannerWidth: number | null = null;
   bannerHeight: number | null = null;
-  containerWidth: number | null = null;
   cuId: number = 0;
   exId: number | null = null;
   max: number | null = null;
@@ -26,12 +39,12 @@ class App {
 
   heroBannerEl: HTMLDivElement | null | undefined;
   bannerWrapEl: HTMLDivElement | null | undefined;
-  bannerContainerEl: HTMLDivElement | null | undefined;
   bannerItemEls: NodeListOf<HTMLDivElement> | undefined;
-  paddleNavEl: HTMLDivElement | null | undefined;
-  btnPaddleEls: NodeListOf<HTMLButtonElement> | undefined;
-  btnPaddlePreviousEl: HTMLButtonElement | null | undefined;
-  btnPaddleNextEl: HTMLButtonElement | null | undefined;
+  controlsEl: HTMLDivElement | null | undefined;
+  pageEl: HTMLDivElement | null | undefined;
+  cuPageEl: HTMLSpanElement | null | undefined;
+  maxPageEl: HTMLSpanElement | null | undefined;
+  btnArrowEls: NodeListOf<HTMLButtonElement> | undefined;
   dotNavEl: HTMLDivElement | null | undefined;
   dotNavListEl: HTMLUListElement | null | undefined;
   btnDotEls: NodeListOf<HTMLButtonElement> | undefined;
@@ -46,12 +59,12 @@ class App {
   layout() {
     this.heroBannerEl = document.querySelector('#banner') as HTMLDivElement;
     this.bannerWrapEl = this.heroBannerEl.querySelector('.banner-wrap') as HTMLDivElement;
-    this.bannerContainerEl = this.bannerWrapEl.querySelector('.banner-container') as HTMLDivElement;
-    this.bannerItemEls = this.bannerContainerEl.querySelectorAll('.banner-item');
-    this.paddleNavEl = this.heroBannerEl.querySelector('.paddle-nav') as HTMLDivElement;
-    this.btnPaddleEls = this.paddleNavEl.querySelectorAll('button.btn-paddle');
-    this.btnPaddlePreviousEl = this.paddleNavEl.querySelector('button.btn-paddle.paddle-previous') as HTMLButtonElement;
-    this.btnPaddleNextEl = this.paddleNavEl.querySelector('button.btn-paddle.paddle-next') as HTMLButtonElement;
+    this.bannerItemEls = this.bannerWrapEl.querySelectorAll('.banner-item');
+    this.controlsEl = this.heroBannerEl.querySelector('.controls') as HTMLDivElement;
+    this.pageEl = this.controlsEl.querySelector('.page') as HTMLDivElement;
+    this.cuPageEl = this.pageEl.querySelector('span.current') as HTMLSpanElement
+    this.maxPageEl = this.pageEl.querySelector('span.max') as HTMLSpanElement;
+    this.btnArrowEls = this.controlsEl.querySelectorAll('button.btn-arrow');
     this.dotNavEl = this.heroBannerEl.querySelector('.dot-nav') as HTMLDivElement;
     this.dotNavListEl = this.dotNavEl.querySelector('ul');
   }
@@ -78,12 +91,12 @@ class App {
   }
 
   addEvent() {
-    if (!this.btnPaddleEls || !this.btnDotEls) {
+    if (!this.btnArrowEls || !this.btnDotEls) {
       return
     }
     window.addEventListener('resize', this.handleResizeWindow.bind(this));
-    this.btnPaddleEls.forEach((el: HTMLButtonElement) => {
-      el.addEventListener('click', this.handleClickBtnPaddleEl.bind(this));
+    this.btnArrowEls.forEach((el: HTMLButtonElement) => {
+      el.addEventListener('click', this.handleClickBtnArrowEl.bind(this));
     });
     this.btnDotEls.forEach((el: HTMLButtonElement) => {
       el.addEventListener('click', this.handleClickBtnDotEl.bind(this));
@@ -91,31 +104,19 @@ class App {
   }
 
   reset() {
+    if (!this.heroBannerEl || !this.maxPageEl) {
+      return
+    }
     this.cuId = 0;
     this.exId = this.cuId;
-    if (INFINITE) {
-      this.setInfiniteBanner();
-    }
-    // this.resizeBanner();
-    // this.changeItem();
+    this.layoutType = this.heroBannerEl.dataset.layout as LayoutType;
+    this.maxPageEl.innerText = `${this.max}`;
+    this.checkPage();
     window.dispatchEvent(new Event('resize'));
   }
 
-  setInfiniteBanner() {
-    if (!INFINITE || this.max === null || !this.bannerContainerEl || !this.bannerItemEls) {
-      return
-    }
-    const firstCloneItemEl = this.bannerItemEls.item(0).cloneNode(true) as HTMLDivElement;
-    const lastCloneItemEl = this.bannerItemEls.item(this.max - 1).cloneNode(true) as HTMLDivElement;
-    firstCloneItemEl.classList.add('clone');
-    lastCloneItemEl.classList.add('clone');
-    this.bannerContainerEl.insertBefore(lastCloneItemEl, this.bannerItemEls.item(0));
-    this.bannerContainerEl.appendChild(firstCloneItemEl);
-    this.bannerItemEls = this.bannerContainerEl.querySelectorAll('.banner-item');
-  }
-
   resizeBanner() {
-    if (this.max === null || !this.heroBannerEl || !this.bannerContainerEl || !this.bannerItemEls) {
+    if (this.max === null || !this.heroBannerEl || !this.bannerItemEls) {
       return
     }
     const { innerWidth: width, innerHeight: height } = window
@@ -129,14 +130,9 @@ class App {
     const marginLeft = Math.round(width / 2 - imageWidth / 2);
     this.bannerWidth = width;
     this.bannerHeight = height;
-    this.containerWidth = INFINITE ? this.bannerWidth * (this.max + 2) : this.bannerWidth * this.max;
     gsap.set(this.heroBannerEl, { width: this.bannerWidth, height: this.bannerHeight });
-    gsap.set(this.bannerContainerEl, { width: this.containerWidth, height: this.bannerHeight });
     gsap.set(this.bannerItemEls, { width: this.bannerWidth, height: this.bannerHeight });
     this.bannerItemEls.forEach((el) => {
-      if (imageWidth === null || imageHeight === null) {
-        return
-      }
       const imageEl = el.querySelector('.image-area figure img');
       gsap.set(imageEl, { width: imageWidth, height: imageHeight, marginTop, marginLeft });
     });
@@ -154,68 +150,76 @@ class App {
       return
     }
     let id = this.exId + 1;
-    if (!INFINITE && id > this.max - 1) {
+    if (id > this.max - 1) {
       id = 0;
     }
     if (this.exId !== id) {
       this.cuId = id;
-      this.checkPaddleNav();
+      this.checkPage();
       this.changeItem(true);
     }
   }
 
-  changeItem(withAni: boolean = false) {
-    if (this.bannerWidth === null || this.exId === null || this.max === null || !this.bannerContainerEl || !this.bannerItemEls) {
+  changeItem(withAni: boolean = false, direction: boolean = false) {
+    if (this.bannerWidth === null || this.bannerHeight === null || this.exId === null || this.max === null || !this.bannerItemEls) {
       return
     }
     if (this.timer) {
       clearInterval(this.timer);
     }
-    gsap.killTweensOf(this.bannerContainerEl);
-    let x = INFINITE ? this.bannerWidth * (this.cuId + 1) * -1 : this.bannerWidth * this.cuId * -1;
-    const duration = BASE_DURATION + ADD_DURATION * Math.abs(this.cuId - this.exId);
-    let cloneItemEl: HTMLDivElement | null = null
-    if (INFINITE) {
-      if (this.cuId < 0) {
-        cloneItemEl = this.bannerItemEls.item(0);
-        this.cuId = this.max - 1;
-      } else if (this.cuId > this.max - 1) {
-        cloneItemEl = this.bannerItemEls.item(this.max + 1);
-        this.cuId = 0
-      }
-    }
+    const cuItemEl = this.bannerItemEls.item(this.cuId);
+    const exItemEl = this.bannerItemEls.item(this.exId);
+    gsap.killTweensOf(cuItemEl);
+    gsap.killTweensOf(exItemEl);
     this.checkDotNav();
+    const cuPos: Pos = { startX: 0, startY: 0, endX: 0, endY: 0 }
+    const exPos: Pos = { startX: 0, startY: 0, endX: 0, endY: 0 }
     if (!withAni) {
-      gsap.set(this.bannerContainerEl, { x });
-      this.checkPaddleNav();
+      gsap.set(cuItemEl, { x: cuPos.endX, y: cuPos.endY });
+      this.checkPage();
       this.exId = this.cuId;
       this.isAni = false;
       this.autoPlayBanner();
       return
     }
     this.isAni = true;
-    const itemEl = INFINITE ? this.bannerItemEls.item(this.cuId + 1) : this.bannerItemEls.item(this.cuId);
-    this.itemContentInit(itemEl, cloneItemEl);
-    gsap.to(this.bannerContainerEl, {
-      x, duration, ease: 'power2.inOut', onComplete: () => {
-        if (this.bannerWidth === null || !this.bannerContainerEl) {
-          return
+    if (!exItemEl.classList.contains('ex')) {
+      exItemEl.classList.remove('selected');
+      exItemEl.classList.add('ex');
+    }
+    if (!cuItemEl.classList.contains('selected')) {
+      cuItemEl.classList.remove('ex');
+      cuItemEl.classList.add('selected');
+    }
+    if (this.layoutType === 'horizontal') {
+      cuPos.startX = !direction ? this.bannerWidth : this.bannerWidth * -1;
+      exPos.endX = !direction ? this.bannerWidth * -1 : this.bannerWidth;
+    } else if (this.layoutType === 'vertical') {
+      cuPos.startY = !direction ? this.bannerHeight : this.bannerHeight * -1;
+      exPos.endY = !direction ? this.bannerHeight * -1 : this.bannerHeight;
+    }
+    gsap.set(exItemEl, { x: exPos.startX, y: exPos.startY });
+    gsap.set(cuItemEl, { x: cuPos.startX, y: cuPos.startY });
+    this.itemContentInit(cuItemEl);
+    setTimeout(() => this.itemContentAppear(cuItemEl), CU_DURATION * 0.66 * 1000);
+    gsap.to(exItemEl, { x: exPos.endX, y: exPos.endY, duration: EX_DURATION, ease: EX_EASE });
+    gsap.to(cuItemEl, {
+      x: cuPos.endX, y: cuPos.endY, duration: CU_DURATION, ease: CU_EASE, onComplete: () => {
+        gsap.killTweensOf(exItemEl);
+        if (exItemEl.classList.contains('ex')) {
+          exItemEl.classList.remove('ex');
         }
-        if (INFINITE) {
-          x = this.bannerWidth * (this.cuId + 1) * -1
-          gsap.set(this.bannerContainerEl,  { x })
-        }
-        this.checkPaddleNav();
-        this.itemContentAppear(itemEl, cloneItemEl, () => {
-          this.exId = this.cuId;
-          this.isAni = false;
-          this.autoPlayBanner();
-        });
+        gsap.set(exItemEl, { clearProps: 'transform' });
+        gsap.set(cuItemEl, { clearProps: 'transform' });
+        this.checkPage();
+        this.exId = this.cuId;
+        this.isAni = false;
+        this.autoPlayBanner();
       }
     });
   }
 
-  itemContentInit(el: HTMLDivElement, cloneEl: HTMLDivElement | null = null) {
+  itemContentInit(el: HTMLDivElement) {
     const eyebrowEl = el.querySelector('.eyebrow');
     const headlineEl = el.querySelector('.headline') as HTMLHeadingElement;
     const headlineSpanEls = headlineEl.querySelectorAll('span');
@@ -228,17 +232,9 @@ class App {
     gsap.set(headlineSpanEls, { text: '' });
     gsap.set(headlineEl, { x: 40, autoAlpha: 0 });
     gsap.set(copyEl, { y: 20, autoAlpha: 0 });
-    if (cloneEl !== null) {
-      const cloneEyebrowEl = cloneEl.querySelector('.eyebrow');
-      const cloneHeadlineEl = cloneEl.querySelector('.headline');
-      const cloneCopyEl = cloneEl.querySelector('.copy');
-      gsap.set(cloneEyebrowEl, { autoAlpha: 0 });
-      gsap.set(cloneHeadlineEl, { autoAlpha: 0 });
-      gsap.set(cloneCopyEl, { autoAlpha: 0 });
-    }
   }
 
-  itemContentAppear(el: HTMLDivElement, cloneEl: HTMLDivElement | null = null, callback: () => void) {
+  itemContentAppear(el: HTMLDivElement) {
     const eyebrowEl = el.querySelector('.eyebrow');
     const headlineEl = el.querySelector('.headline') as HTMLHeadingElement;
     const headlineSpanEls = headlineEl.querySelectorAll('span');
@@ -270,45 +266,14 @@ class App {
       gsap.set(headlineEl, { clearProps: 'all' });
       gsap.set(headlineSpanEls, { clearProps: 'all' });
       gsap.set(copyEl, { clearProps: 'all' });
-      if (cloneEl !== null) {
-        const cloneEyebrowEl = cloneEl.querySelector('.eyebrow');
-        const cloneHeadlineEl = cloneEl.querySelector('.headline');
-        const cloneCopyEl = cloneEl.querySelector('.copy');
-        gsap.set(cloneEyebrowEl, { clearProps: 'all' });
-        gsap.set(cloneHeadlineEl, { clearProps: 'all' });
-        gsap.set(cloneCopyEl, { clearProps: 'all' });
-      }
-      if (callback) {
-        callback();
-      }
     });
   }
 
-  checkPaddleNav() {
-    if (this.max === null || !this.btnPaddlePreviousEl || !this.btnPaddleNextEl) {
-      return;
-    }
-    if (INFINITE) {
-      this.btnPaddlePreviousEl.disabled = false;
-      this.btnPaddleNextEl.disabled = false;
+  checkPage() {
+    if (!this.cuPageEl) {
       return
     }
-    if (this.cuId === 0) {
-      if (!this.btnPaddlePreviousEl.disabled) {
-        this.btnPaddlePreviousEl.disabled = true;
-      }
-      this.btnPaddleNextEl.disabled = false;
-      return
-    }
-    if (this.cuId === this.max - 1) {
-      this.btnPaddlePreviousEl.disabled = false;
-      if (!this.btnPaddleNextEl.disabled) {
-        this.btnPaddleNextEl.disabled = true;
-      }
-      return
-    }
-    this.btnPaddlePreviousEl.disabled = false;
-    this.btnPaddleNextEl.disabled = false;
+    this.cuPageEl.innerText = `${this.cuId + 1}`;
   }
 
   checkDotNav() {
@@ -337,36 +302,31 @@ class App {
     this.changeItem();
   }
 
-  handleClickBtnPaddleEl(e: MouseEvent) {
+  handleClickBtnArrowEl(e: MouseEvent) {
     e.preventDefault();
     if (this.isAni || this.exId === null || this.max === null) {
       return
     }
     const el = e.currentTarget as HTMLButtonElement;
     let id = this.exId;
-    if (el.classList.contains('paddle-previous')) {
+    let direction = false;
+    if (el.classList.contains('arrow-previous')) {
       id -= 1;
+      direction = true;
     }
-    if (el.classList.contains('paddle-next')) {
+    if (el.classList.contains('arrow-next')) {
       id += 1;
+      direction = false;
     }
-    if (INFINITE) {
-      if (id < -1) {
-        id = this.max - 1;
-      } else if (id > this.max) {
-        id = 0;
-      }
-    } else {
-      if (id < 0) {
-        id = 0;
-      } else if (id > this.max - 1) {
-        id = this.max - 1;
-      }
+    if (id < 0) {
+      id = this.max - 1;
+    } else if (id > this.max - 1) {
+      id = 0;
     }
     if (this.exId !== id) {
       this.cuId = id;
-      this.checkPaddleNav();
-      this.changeItem(true);
+      this.checkPage();
+      this.changeItem(true, direction);
     }
   }
 

@@ -3,8 +3,6 @@ import gsap from 'gsap';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import '@fortawesome/fontawesome-free/js/all.min';
 
-
-const INFINITE: boolean = true;
 const IMAGE_WIDTH: number = 1000;
 const IMAGE_HEIGHT: number = 625;
 const BASE_DURATION: number = 0.3;

@@ -261,7 +261,7 @@ select, button {
     width: 100vw;
     height: 100vh;
     background-color: var(--color-default);
-    justify-content: center;
+    justify-content: center
 }
 
 .hero-banner {
@@ -276,21 +276,21 @@ select, button {
 .hero-banner .banner-wrap {
     overflow: hidden;
     width: 100vw;
-    height: 100%;
+    height: 100%
 }
 
 .hero-banner .banner-container {
     overflow: hidden;
     display: -webkit-box;
     display: flex;
-    height: 100%;
+    height: 100%
 }
 
 .hero-banner .banner-container .banner-item {
     position: relative;
     width: 100vw;
     height: 100%;
-    flex-shrink: 0;
+    flex-shrink: 0
 }
 
 .hero-banner .banner-container .banner-item .image-area {
@@ -298,7 +298,7 @@ select, button {
     top: 0;
     right: 0;
     bottom: 0;
-    left: 0;
+    left: 0
 }
 
 .hero-banner .banner-container .banner-item .image-area::after {
@@ -309,7 +309,7 @@ select, button {
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: var(--color-dim);
+    background-color: var(--color-dim)
 }
 
 .hero-banner .banner-container .banner-item .image-area figure {
@@ -325,7 +325,7 @@ select, button {
     user-select: none;
     -webkit-user-select: none;
     user-drag: none;
-    -webkit-user-drag: none;
+    -webkit-user-drag: none
 }
 
 .hero-banner .banner-container .banner-item .typography-area {
@@ -339,7 +339,7 @@ select, button {
     padding-left: 100px;
     color: var(--color-white);
     flex-direction: column;
-    justify-content: center;
+    justify-content: center
 }
 
 .hero-banner .banner-item .typography-area p.eyebrow {
@@ -348,21 +348,21 @@ select, button {
     text-transform: uppercase;
     font-size: 16px;
     line-height: 22px;
-    align-self: flex-start;
+    align-self: flex-start
 }
 
 .hero-banner .banner-item .typography-area p.eyebrow span {
     display: inline-block;
-    vertical-align: top;
+    vertical-align: top
 }
 
 .hero-banner .banner-item .typography-area p.eyebrow span.count {
     position: relative;
-    padding-left: 16px;
+    padding-left: 16px
 }
 
 .hero-banner .banner-item .typography-area p.eyebrow span + span.count {
-    margin-left: 8px;
+    margin-left: 8px
 }
 
 .hero-banner .banner-item .typography-area p.eyebrow span.count::before {
@@ -405,20 +405,19 @@ select, button {
 .hero-banner .banner-item .typography-area p.eyebrow span {
     display: inline-block;
     position: relative;
-    vertical-align: top;
+    vertical-align: top
 }
 
 .hero-banner .banner-item .typography-area p.eyebrow + h2.headline {
-    margin-top: 14px;
+    margin-top: 14px
 }
 
 .hero-banner .banner-item .typography-area h2.headline {
-    /*text-transform: capitalize;*/
     display: inline-flex;
     height: 50px;
     font-size: 42px;
     font-weight: 700;
-    line-height: 50px;
+    line-height: 50px
 }
 
 .hero-banner .banner-item .typography-area h2.headline span {
@@ -428,7 +427,7 @@ select, button {
 }
 
 .hero-banner .banner-item .typography-area h2.headline span:last-child {
-    padding-right: initial;
+    padding-right: initial
 }
 
 .hero-banner .banner-item .typography-area h2.headline span::before {
@@ -443,22 +442,22 @@ select, button {
     transition: width 320ms var(--ease-circ-out);
     -webkit-transition: width 320ms var(--ease-circ-out);
     -moz-transition: width 320ms var(--ease-circ-out);
-    -o-transition: width 320ms var(--ease-circ-out);
+    -o-transition: width 320ms var(--ease-circ-out)
 }
 
 .hero-banner .banner-item .typography-area h2.headline span.active::before {
-    width: 100%;
+    width: 100%
 }
 
 .hero-banner .banner-item .typography-area h2.headline + p.copy {
-    margin-top: 20px;
+    margin-top: 20px
 }
 
 .hero-banner .banner-item .typography-area p.copy {
     padding-bottom: 20px;
     font-family: garamond-premier-pro, 'Apple SD Gothic Neo', AppleSDGothicNeo, 'Malgun Gothic', '맑은 고딕', Roboto, 'Helvetica Neue', '애플 SD 산돌고딕 Neo', dotum, gulim, Helvetica, Arial, sans-serif;
     font-size: 16px;
-    line-height: 22px;
+    line-height: 22px
 }
 
 .hero-banner .paddle-nav {
@@ -498,12 +497,12 @@ select, button {
 .hero-banner .paddle-nav button.btn-paddle:disabled {
     opacity: 0;
     cursor: default;
-    pointer-events: none;
+    pointer-events: none
 }
 
 .hero-banner .paddle-nav button.btn-paddle:not(:disabled):hover {
     background-color: var(--color-highlight);
-    color: var(--color-white);
+    color: var(--color-white)
 }
 
 .hero-banner .paddle-nav button.btn-paddle.paddle-previous {
@@ -519,19 +518,19 @@ select, button {
     z-index: 100;
     right: 0;
     bottom: 40px;
-    left: 0;
+    left: 0
 }
 
 .hero-banner .dot-nav ul {
     display: -webkit-box;
     display: flex;
-    justify-content: center;
+    justify-content: center
 }
 
 .hero-banner .dot-nav li {
     padding-right: 8px;
     padding-left: 8px;
-    line-height: 12px;
+    line-height: 12px
 }
 
 .hero-banner .dot-nav li button.btn-dot {

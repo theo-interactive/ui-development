@@ -258,7 +258,7 @@ select, button {
     width: 100vw;
     height: 100vh;
     background-color: var(--color-default);
-    justify-content: center;
+    justify-content: center
 }
 
 .image-gallery {
@@ -266,32 +266,32 @@ select, button {
     width: 1000px;
     height: 625px;
     margin-right: auto;
-    margin-left: auto;
+    margin-left: auto
 }
 
 .image-gallery .image-wrap {
     overflow: hidden;
     width: 100%;
-    height: 100%;
+    height: 100%
 }
 
 .image-gallery .image-container {
     overflow: hidden;
     display: -webkit-box;
     display: flex;
-    height: 100%;
+    height: 100%
 }
 
 .image-gallery .image-container .image-item {
     position: relative;
     height: 100%;
-    flex-shrink: 0;
+    flex-shrink: 0
 }
 
 .image-gallery .image-container .image-item figure {
     overflow: hidden;
     width: 100%;
-    height: 100%;
+    height: 100%
 }
 
 .image-gallery .image-container .image-item figure img {
@@ -301,7 +301,7 @@ select, button {
     user-select: none;
     -webkit-user-select: none;
     user-drag: none;
-    -webkit-user-drag: none;
+    -webkit-user-drag: none
 }
 
 .image-gallery .paddle-nav {
@@ -341,12 +341,12 @@ select, button {
 .image-gallery .paddle-nav button.btn-paddle:disabled {
     opacity: 0;
     cursor: default;
-    pointer-events: none;
+    pointer-events: none
 }
 
 .image-gallery .paddle-nav button.btn-paddle:not(:disabled):hover {
     background-color: var(--color-selected);
-    color: var(--color-white);
+    color: var(--color-white)
 }
 
 .image-gallery .paddle-nav button.btn-paddle.paddle-previous {
@@ -362,19 +362,19 @@ select, button {
     z-index: 100;
     right: 0;
     bottom: 30px;
-    left: 0;
+    left: 0
 }
 
 .image-gallery .dot-nav ul {
     display: -webkit-box;
     display: flex;
-    justify-content: center;
+    justify-content: center
 }
 
 .image-gallery .dot-nav li {
     padding-right: 6px;
     padding-left: 6px;
-    line-height: 8px;
+    line-height: 8px
 }
 
 .image-gallery .dot-nav li button.btn-dot {
@@ -397,7 +397,7 @@ select, button {
 }
 
 .image-gallery .dot-nav li button.btn-dot:disabled {
-    cursor: default;
+    cursor: default
 }
 
 .image-gallery .dot-nav li button.btn-dot.selected {
@@ -431,7 +431,7 @@ select, button {
     display: block;
     width: 120px;
     height: 75px;
-    cursor: pointer;
+    cursor: pointer
 }
 
 .image-gallery-thumbnails li button.btn-thumbnail::before,
