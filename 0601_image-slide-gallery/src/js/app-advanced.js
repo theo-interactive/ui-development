@@ -1,5 +1,5 @@
 const APP = {
-    _infinite: false,
+    _infinite: true,
     _isAni: false,
     _galleryWidth: null,
     _galleryHeight: null,

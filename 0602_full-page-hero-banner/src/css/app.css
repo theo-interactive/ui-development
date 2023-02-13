@@ -253,7 +253,7 @@ select, button {
 }
 
 /*-- Layout. --*/
-.wrap {
+#wrap {
     overflow: hidden;
     display: -webkit-box;
     display: flex;

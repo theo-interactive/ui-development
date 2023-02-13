@@ -1,0 +1,433 @@
+@import url("https://use.typekit.net/zzj4qmz.css");
+
+:root {
+    --color-dark: #222222;
+    --color-default: #000000;
+    --color-white: #ffffff;
+    --color-dim: rgba(0, 0, 0, 0.2);
+    --color-shadow: rgba(0, 0, 0, 0.4);
+    --ease-quad-in-out: cubic-bezier(0.455, 0.030, 0.515, 0.955);
+    --ease-sine-in-out: cubic-bezier(0.445, 0.050, 0.550, 0.950)
+}
+
+
+/*-- Reset. --*/
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, textarea, p, blockquote, th, td, input, select, textarea, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    margin: 0;
+    padding: 0
+}
+
+article, aside, details, figcaption, figure, footer, header, main, hgroup, menu, nav, section {
+    display: block
+}
+
+audio, canvas, progress, video {
+    display: inline-block
+}
+
+a, abbr, address, article, aside, audio, b, blockquote, body, br, button, canvas, caption, cite, code, col, data, datalist, dd, del, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hr, html, i, iframe, img, input, ins, kbd, label, legend, li, main, mark, meter, nav, object, ol, output, p, pre, progress, q, s, samp, section, select, small, span, strong, sub, sup, table, td, textarea, th, time, u, ul, var, video {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent
+}
+
+html {
+    -ms-content-zooming: none;
+    -ms-touch-action: pan-x pan-y
+}
+
+body {
+    -webkit-text-size-adjust: none
+}
+
+fieldset, img {
+    border: 0 none
+}
+
+dl, ul, ol, menu, li {
+    list-style: none
+}
+
+blockquote, q {
+    quotes: none
+}
+
+blockquote::before, blockquote::after, q::before, q::after {
+    content: '';
+    content: none
+}
+
+input, select, textarea, button {
+    font-size: 100%;
+    vertical-align: middle;
+    outline: none
+}
+
+button {
+    border: 0 none;
+    background-color: transparent;
+    cursor: pointer;
+    overflow: hidden
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+input[type="text"], input[type="tel"], input[type="password"], input[type="submit"], input[type="search"], input[type="number"] {
+    background-color: transparent;
+    border-radius: 0;
+    box-shadow: 0 0 0 0 transparent inset;
+    transition: color .1s ease, border-color .1s ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none
+}
+
+input:checked[type="checkbox"] {
+    background-color: var(--color-dark);
+    -webkit-appearance: checkbox
+}
+
+button, input[type="button"], input[type="submit"], input[type="reset"], input[type="file"] {
+    -webkit-appearance: button;
+    border-radius: 0
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none
+}
+
+input[type="date"] {
+    text-align: center;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none
+}
+
+input[type="date"]:invalid::-webkit-datetime-edit {
+    color: var(--color-dark)
+}
+
+input[type="date"]::-webkit-clear-button {
+    display: none
+}
+
+input[type="date"]::-webkit-inner-spin-button {
+    display: none
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    color: var(--color-dark)
+}
+
+input[type="date"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none
+}
+
+input:-webkit-autofill, input:-webkit-autofill:active, input:-webkit-autofill:focus, input:-webkit-autofill:hover {
+    -webkit-transition: background-color 5000s ease-in-out 0s;
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-box-shadow: 0 0 0 1000px transparent inset !important
+}
+
+textarea {
+    background-color: transparent;
+    border: none;
+    resize: none
+}
+
+audio:not([controls]) {
+    display: none;
+    height: 0
+}
+
+[hidden], template {
+    display: none
+}
+
+a, a:active, a:hover {
+    text-decoration: none
+}
+
+address, caption, cite, code, dfn, em, var {
+    font-style: normal;
+    font-weight: 400
+}
+
+i {
+    font-style: normal
+}
+
+a, button {
+    position: relative;
+    -webkit-tap-highlight-color: transparent
+}
+
+input {
+    border-radius: 0;
+    border: none;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    opacity: 1
+}
+
+a {
+    color: var(--color-dark);
+    -webkit-transition: color 200ms ease-in-out;
+    -moz-transition: color 200ms ease-in-out;
+    -o-transition: color 200ms ease-in-out;
+    transition: color 200ms ease-in-out
+}
+
+a:focus, input:focus, textarea:focus, button:focus {
+    outline: none
+}
+
+.blind {
+    overflow: hidden;
+    display: none;
+    visibility: hidden;
+    position: absolute;
+    clip: rect(0 0 0 0);
+    width: 0;
+    height: 0
+}
+
+html, body, th, td, input, select, textarea, button {
+    color: var(--color-dark);
+    text-size-adjust: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizelegibility;
+    font-family: futura-pt, 'Apple SD Gothic Neo', AppleSDGothicNeo, 'Malgun Gothic', '맑은 고딕', Roboto, 'Helvetica Neue', '애플 SD 산돌고딕 Neo', dotum, gulim, Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5rem
+}
+
+select, button {
+    user-select: none;
+    -webkit-user-select: none
+}
+
+::-moz-selection {
+    background: var(--color-default);
+    text-shadow: none;
+    color: var(--color-white)
+}
+
+::selection {
+    background: var(--color-default);
+    text-shadow: none;
+    color: var(--color-white)
+}
+
+.visually-hidden {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0;
+    height: 0;
+    clip: rect(0, 0, 0, 0);
+    pointer-events: none
+}
+
+/*-- Layout. --*/
+#wrap {
+    overflow: hidden;
+    display: -webkit-box;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--color-default);
+    justify-content: center;
+    align-items: center
+}
+
+.accordion {
+    overflow: hidden;
+    display: -webkit-box;
+    display: flex;
+    position: relative;
+    width: 1200px;
+    height: 800px
+}
+
+.accordion .accordion-item {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    cursor: pointer;
+    -webkit-transition: all 400ms var(--ease-sine-in-out);
+    -moz-transition: all 400ms var(--ease-sine-in-out);
+    -o-transition: all 400ms var(--ease-sine-in-out);
+    -ms-transition: all 400ms var(--ease-sine-in-out);
+    transition: all 400ms var(--ease-sine-in-out)
+}
+
+.accordion .accordion-item:hover {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 800px;
+    cursor: default
+}
+
+.accordion .accordion-item .accordion-collapse {
+    position: absolute;
+    z-index: 20;
+    top: 50%;
+    left: 50%;
+    line-height: 20px;
+    color: var(--color-white);
+    transform: translateX(-50%) translateY(-50%) rotate(90deg);
+    -webkit-transform: translateX(-50%) translateY(-50%) rotate(90deg);
+    -moz-transform: translateX(-50%) translateY(-50%) rotate(90deg);
+    -o-transform: translateX(-50%) translateY(-50%) rotate(90deg);
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    transition: opacity 200ms 250ms ease-in-out;
+    -webkit-transition: opacity 200ms 250ms ease-in-out;
+    -moz-transition: opacity 200ms 250ms ease-in-out;
+    -o-transition: opacity 200ms 250ms ease-in-out
+}
+
+.accordion .accordion-item:hover .accordion-collapse {
+    opacity: 0;
+    transition: opacity 200ms ease-in-out;
+    -webkit-transition: opacity 200ms ease-in-out;
+    -moz-transition: opacity 200ms ease-in-out;
+    -o-transition: opacity 200ms ease-in-out
+}
+
+.accordion .accordion-item .accordion-collapse span {
+    display: block;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    white-space: nowrap;
+    text-shadow: 0 0 10px var(--color-shadow);
+}
+
+.accordion .accordion-item .accordion-view {
+    display: flex;
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none
+}
+
+.accordion .accordion-item .accordion-view::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    background-color: var(--color-dim);
+    transition: opacity 300ms ease-in-out;
+    -webkit-transition: opacity 300ms ease-in-out;
+    -moz-transition: opacity 300ms ease-in-out;
+    -o-transition: opacity 300ms ease-in-out
+}
+
+.accordion .accordion-item:hover .accordion-view::before {
+    opacity: 1
+}
+
+.accordion .accordion-item .accordion-view h2.headline {
+    position: relative;
+    text-transform: uppercase;
+    color: var(--color-white);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 26px;
+    -webkit-transform: translateY(10px);
+    -moz-transform: translateY(10px);
+    -o-transform: translateY(10px);
+    transform: translateY(10px)
+}
+
+.accordion .accordion-item .accordion-view h2.headline + p.copy {
+    margin-top: 8px
+}
+
+.accordion .accordion-item .accordion-view p.copy {
+    position: relative;
+    color: var(--color-white);
+    font-size: 16px;
+    line-height: 22px;
+    -webkit-transform: translateY(30px);
+    -moz-transform: translateY(30px);
+    -o-transform: translateY(30px);
+    transform: translateY(30px)
+}
+
+.accordion .accordion-item .accordion-view h2.headline,
+.accordion .accordion-item .accordion-view p.copy {
+    opacity: 0;
+    transition: all 300ms var(--ease-quad-in-out);
+    -webkit-transition: all 300ms var(--ease-quad-in-out);
+    -moz-transition: all 300ms var(--ease-quad-in-out);
+    -o-transition: all 300ms var(--ease-quad-in-out);
+}
+
+.accordion .accordion-item:hover .accordion-view h2.headline,
+.accordion .accordion-item:hover .accordion-view p.copy {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0);
+    transition: all 300ms 200ms var(--ease-quad-in-out);
+    -webkit-transition: all 300ms 200ms var(--ease-quad-in-out);
+    -moz-transition: all 300ms 200ms var(--ease-quad-in-out);
+    -o-transition: all 300ms 200ms var(--ease-quad-in-out)
+}
+
+.accordion .accordion-item .accordion-image {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -o-transform: translateX(-50%)
+}
+
+.accordion .accordion-item .accordion-image figure {
+    position: relative;
+    height: 100%
+}
+
+.accordion .accordion-item .accordion-image figure img {
+    display: inline-block;
+    width: auto;
+    height: 100%;
+    vertical-align: top;
+    object-fit: contain
+}
+
