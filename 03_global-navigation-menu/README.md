@@ -1,4 +1,4 @@
-# Navigation Menu (Typescript)
+# Global Navigation Menu
 
 ## Installation
 
