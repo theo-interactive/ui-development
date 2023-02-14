@@ -62,7 +62,6 @@ const APP = {
         html += '<div id="accordion" class="accordion">';
         DATA.forEach((datum, idx) => {
             const { city, abbr, title, description, imageUrl } = datum
-            console.log(description.nl2br())
             html += `<div id="accordion-item-${idx + 1}" class="accordion-item">`;
             html +=     `<div class="accordion-collapse" role="presentation"><p>${abbr}<span data-collapse="${abbr}"></span></p></div>`;
             html +=     '<div class="accordion-view">';
