@@ -1,3 +1,7 @@
+String.prototype.nl2br = function() {
+    return this.replace(/\r?\n|\r/g, '<br />');
+}
+
 const DATA = [
     {
         city: 'London',
@@ -58,12 +62,13 @@ const APP = {
         html += '<div id="accordion" class="accordion">';
         DATA.forEach((datum, idx) => {
             const { city, abbr, title, description, imageUrl } = datum
+            console.log(description.nl2br())
             html += `<div id="accordion-item-${idx + 1}" class="accordion-item">`;
             html +=     `<div class="accordion-collapse" role="presentation"><p>${abbr}<span data-collapse="${abbr}"></span></p></div>`;
             html +=     '<div class="accordion-view">';
             html +=         `<h2 class="eyebrow">${city}</h2>`;
             html +=         `<h3 class="headline">${title}</h3>`;
-            html +=         `<p class="copy">${description}</p>`;
+            html +=         `<p class="copy">${description.nl2br()}</p>`;
             html +=     '</div>';
             html +=     '<div class="accordion-image">';
             html +=         `<figure><img src="${imageUrl}" alt="${title}" /></figure>`;
@@ -76,14 +81,14 @@ const APP = {
     },
     preload() {
         this._imageUrls = DATA.map((datum) => datum.imageUrl);
-        let lodedCheckCount = 0;
+        let loadedCheckCount = 0;
         const max = this._imageUrls.length;
         if (max > 0) {
             this._imageUrls.forEach((imageUrl) => {
                 const img = new Image();
                 img.onload = () => {
-                    lodedCheckCount++;
-                    if (lodedCheckCount >= max) {
+                    loadedCheckCount++;
+                    if (loadedCheckCount >= max) {
                         this.wrapEl.classList.remove('inactive');
                     }
                 }
