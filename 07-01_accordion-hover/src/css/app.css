@@ -4,12 +4,12 @@
     --color-dark: #222222;
     --color-default: #000000;
     --color-white: #ffffff;
+    --color-gray: #dddddd;
     --color-dim: rgba(0, 0, 0, 0.2);
     --color-shadow: rgba(0, 0, 0, 0.4);
     --ease-quad-in-out: cubic-bezier(0.455, 0.030, 0.515, 0.955);
     --ease-sine-in-out: cubic-bezier(0.445, 0.050, 0.550, 0.950)
 }
-
 
 /*-- Reset. --*/
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, textarea, p, blockquote, th, td, input, select, textarea, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
@@ -289,18 +289,10 @@ select, button {
 .accordion .accordion-item .accordion-collapse {
     position: absolute;
     z-index: 20;
-    top: 50%;
-    left: 50%;
-    line-height: 20px;
-    color: var(--color-white);
-    transform: translateX(-50%) translateY(-50%) rotate(90deg);
-    -webkit-transform: translateX(-50%) translateY(-50%) rotate(90deg);
-    -moz-transform: translateX(-50%) translateY(-50%) rotate(90deg);
-    -o-transform: translateX(-50%) translateY(-50%) rotate(90deg);
-    -webkit-transform-origin: 50% 50%;
-    -moz-transform-origin: 50% 50%;
-    -o-transform-origin: 50% 50%;
-    transform-origin: 50% 50%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     transition: opacity 200ms 250ms ease-in-out;
     -webkit-transition: opacity 200ms 250ms ease-in-out;
     -moz-transition: opacity 200ms 250ms ease-in-out;
@@ -315,14 +307,25 @@ select, button {
     -o-transition: opacity 200ms ease-in-out
 }
 
-.accordion .accordion-item .accordion-collapse span {
+.accordion .accordion-item .accordion-collapse p {
     display: block;
-    text-transform: uppercase;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: var(--color-white);
     font-size: 14px;
     font-weight: 700;
     line-height: 20px;
     white-space: nowrap;
     text-shadow: 0 0 10px var(--color-shadow);
+    transform: translateX(-50%) translateY(-50%) rotate(90deg);
+    -webkit-transform: translateX(-50%) translateY(-50%) rotate(90deg);
+    -moz-transform: translateX(-50%) translateY(-50%) rotate(90deg);
+    -o-transform: translateX(-50%) translateY(-50%) rotate(90deg);
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%
 }
 
 .accordion .accordion-item .accordion-view {
@@ -357,45 +360,45 @@ select, button {
     opacity: 1
 }
 
-.accordion .accordion-item .accordion-view h2.headline {
+.accordion .accordion-item .accordion-view h2.eyebrow {
     position: relative;
     text-transform: uppercase;
-    color: var(--color-white);
-    font-size: 20px;
+    color: var(--color-gray);
+    font-size: 14px;
     font-weight: 700;
-    line-height: 26px;
+    line-height: 20px;
     -webkit-transform: translateY(10px);
     -moz-transform: translateY(10px);
     -o-transform: translateY(10px);
     transform: translateY(10px)
 }
 
-.accordion .accordion-item .accordion-view h2.headline + p.copy {
-    margin-top: 8px
-}
-
-.accordion .accordion-item .accordion-view p.copy {
+.accordion .accordion-item .accordion-view h3.headline {
     position: relative;
     color: var(--color-white);
-    font-size: 16px;
-    line-height: 22px;
+    font-size: 20px;
+    line-height: 26px;
     -webkit-transform: translateY(30px);
     -moz-transform: translateY(30px);
     -o-transform: translateY(30px);
     transform: translateY(30px)
 }
 
-.accordion .accordion-item .accordion-view h2.headline,
-.accordion .accordion-item .accordion-view p.copy {
+.accordion .accordion-item .accordion-view h2.eyebrow + h3.headline {
+    margin-top: 8px
+}
+
+.accordion .accordion-item .accordion-view h2.eyebrow,
+.accordion .accordion-item .accordion-view h3.headline {
     opacity: 0;
     transition: all 300ms var(--ease-quad-in-out);
     -webkit-transition: all 300ms var(--ease-quad-in-out);
     -moz-transition: all 300ms var(--ease-quad-in-out);
-    -o-transition: all 300ms var(--ease-quad-in-out);
+    -o-transition: all 300ms var(--ease-quad-in-out)
 }
 
-.accordion .accordion-item:hover .accordion-view h2.headline,
-.accordion .accordion-item:hover .accordion-view p.copy {
+.accordion .accordion-item:hover .accordion-view h2.eyebrow,
+.accordion .accordion-item:hover .accordion-view h3.headline {
     opacity: 1;
     -webkit-transform: translateY(0);
     -moz-transform: translateY(0);
