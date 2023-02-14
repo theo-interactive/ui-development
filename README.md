@@ -1,6 +1,6 @@
 # UI Development
 
-## 📌 VanillaJS, Typescript를 이용한 UI 개발 스터디 예제 코드입니다.
+📌 VanillaJS, Typescript를 이용한 UI 개발 스터디 예제 코드입니다.
 
 ***
 
