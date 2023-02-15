@@ -1,4 +1,4 @@
-# Accordion (Selected)
+# Accordion (Click Selected) - Dynamic HTML Content
 
 ## Installation
 
