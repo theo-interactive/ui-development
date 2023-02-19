@@ -91,7 +91,7 @@ const APP = {
                         this.wrapEl.classList.remove('inactive');
                     }
                 }
-                img.src = imageUrl
+                img.src = imageUrl;
             })
             return
         }
@@ -117,8 +117,8 @@ const APP = {
     },
     handleClickAccordionCollapseEl(e) {
         e.preventDefault();
-        var el = e.currentTarget;
-        var viewEl = el.closest('.accordion-item');
+        const el = e.currentTarget;
+        const viewEl = el.closest('.accordion-item');
         if (viewEl.classList.contains('selected')) {
             return
         }
@@ -131,8 +131,8 @@ const APP = {
     },
     handleClickBtnCloseEl(e) {
         e.preventDefault();
-        var el = e.currentTarget;
-        var viewEl = el.closest('.accordion-item');
+        const el = e.currentTarget;
+        const viewEl = el.closest('.accordion-item');
         if (!viewEl.classList.contains('selected')) {
             return
         }
