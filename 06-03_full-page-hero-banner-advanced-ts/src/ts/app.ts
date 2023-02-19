@@ -27,7 +27,6 @@ const EX_EASE: string = 'sine.in';
 const TIME: number = 6;
 
 class App {
-
   layoutType: LayoutType = LayoutType.horizontal;
   isAni: boolean = false;
   bannerWidth: number | null = null;
@@ -36,7 +35,6 @@ class App {
   exId: number | null = null;
   max: number | null = null;
   timer: number | null = null;
-
   heroBannerEl: HTMLDivElement | null | undefined;
   bannerWrapEl: HTMLDivElement | null | undefined;
   bannerItemEls: NodeListOf<HTMLDivElement> | undefined;
@@ -119,7 +117,7 @@ class App {
     if (this.max === null || !this.heroBannerEl || !this.bannerItemEls) {
       return
     }
-    const { innerWidth: width, innerHeight: height } = window
+    const {innerWidth: width, innerHeight: height} = window
     let imageWidth = width
     let imageHeight = Math.round(ORIGINAL_IMAGE_HEIGHT * width / ORIGINAL_IMAGE_WIDTH);
     if (imageHeight <= height) {
@@ -130,11 +128,11 @@ class App {
     const marginLeft = Math.round(width / 2 - imageWidth / 2);
     this.bannerWidth = width;
     this.bannerHeight = height;
-    gsap.set(this.heroBannerEl, { width: this.bannerWidth, height: this.bannerHeight });
-    gsap.set(this.bannerItemEls, { width: this.bannerWidth, height: this.bannerHeight });
+    gsap.set(this.heroBannerEl, {width: this.bannerWidth, height: this.bannerHeight});
+    gsap.set(this.bannerItemEls, {width: this.bannerWidth, height: this.bannerHeight});
     this.bannerItemEls.forEach((el) => {
       const imageEl = el.querySelector('.image-area figure img');
-      gsap.set(imageEl, { width: imageWidth, height: imageHeight, marginTop, marginLeft });
+      gsap.set(imageEl, {width: imageWidth, height: imageHeight, marginTop, marginLeft});
     });
   }
 
@@ -172,10 +170,10 @@ class App {
     gsap.killTweensOf(cuItemEl);
     gsap.killTweensOf(exItemEl);
     this.checkDotNav();
-    const cuPos: Pos = { startX: 0, startY: 0, endX: 0, endY: 0 }
-    const exPos: Pos = { startX: 0, startY: 0, endX: 0, endY: 0 }
+    const cuPos: Pos = {startX: 0, startY: 0, endX: 0, endY: 0}
+    const exPos: Pos = {startX: 0, startY: 0, endX: 0, endY: 0}
     if (!withAni) {
-      gsap.set(cuItemEl, { x: cuPos.endX, y: cuPos.endY });
+      gsap.set(cuItemEl, {x: cuPos.endX, y: cuPos.endY});
       this.checkPage();
       this.exId = this.cuId;
       this.isAni = false;
@@ -198,19 +196,19 @@ class App {
       cuPos.startY = !direction ? this.bannerHeight : this.bannerHeight * -1;
       exPos.endY = !direction ? this.bannerHeight * -1 : this.bannerHeight;
     }
-    gsap.set(exItemEl, { x: exPos.startX, y: exPos.startY });
-    gsap.set(cuItemEl, { x: cuPos.startX, y: cuPos.startY });
+    gsap.set(exItemEl, {x: exPos.startX, y: exPos.startY});
+    gsap.set(cuItemEl, {x: cuPos.startX, y: cuPos.startY});
     this.itemContentInit(cuItemEl);
     setTimeout(() => this.itemContentAppear(cuItemEl), CU_DURATION * 0.66 * 1000);
-    gsap.to(exItemEl, { x: exPos.endX, y: exPos.endY, duration: EX_DURATION, ease: EX_EASE });
+    gsap.to(exItemEl, {x: exPos.endX, y: exPos.endY, duration: EX_DURATION, ease: EX_EASE});
     gsap.to(cuItemEl, {
       x: cuPos.endX, y: cuPos.endY, duration: CU_DURATION, ease: CU_EASE, onComplete: () => {
         gsap.killTweensOf(exItemEl);
         if (exItemEl.classList.contains('ex')) {
           exItemEl.classList.remove('ex');
         }
-        gsap.set(exItemEl, { clearProps: 'transform' });
-        gsap.set(cuItemEl, { clearProps: 'transform' });
+        gsap.set(exItemEl, {clearProps: 'transform'});
+        gsap.set(cuItemEl, {clearProps: 'transform'});
         this.checkPage();
         this.exId = this.cuId;
         this.isAni = false;
@@ -224,14 +222,14 @@ class App {
     const headlineEl = el.querySelector('.headline') as HTMLHeadingElement;
     const headlineSpanEls = headlineEl.querySelectorAll('span');
     const copyEl = el.querySelector('.copy');
-    gsap.set(eyebrowEl, { x: 20, autoAlpha: 0 });
+    gsap.set(eyebrowEl, {x: 20, autoAlpha: 0});
     headlineSpanEls.forEach((spanEl) => {
       spanEl.classList.remove('active');
       spanEl.dataset.text = spanEl.innerText
     });
-    gsap.set(headlineSpanEls, { text: '' });
-    gsap.set(headlineEl, { x: 40, autoAlpha: 0 });
-    gsap.set(copyEl, { y: 20, autoAlpha: 0 });
+    gsap.set(headlineSpanEls, {text: ''});
+    gsap.set(headlineEl, {x: 40, autoAlpha: 0});
+    gsap.set(copyEl, {y: 20, autoAlpha: 0});
   }
 
   itemContentAppear(el: HTMLDivElement) {
@@ -242,9 +240,9 @@ class App {
     const tl = gsap.timeline();
     // @ts-ignore;
     tl.addLabel('first')
-      .to(eyebrowEl, { x: 0, autoAlpha: 1, duration: 0.15, ease: 'sine.out' })
+      .to(eyebrowEl, {x: 0, autoAlpha: 1, duration: 0.15, ease: 'sine.out'})
       .addLabel('second', '-=0.1')
-      .to(headlineEl, { x: 0, autoAlpha: 1, duration: 0.2, ease: 'sine.inOut' }, 'second')
+      .to(headlineEl, {x: 0, autoAlpha: 1, duration: 0.2, ease: 'sine.inOut'}, 'second')
       .addLabel('third', '-=0.05')
       .to(headlineSpanEls, {
         text: (idx: number, spanEl: any) => {
@@ -260,12 +258,12 @@ class App {
           });
         }
       }, 'second')
-      .to(copyEl, { y: 0, autoAlpha: 1, duration: 0.2, ease: 'circ.out' }, 'third')
+      .to(copyEl, {y: 0, autoAlpha: 1, duration: 0.2, ease: 'circ.out'}, 'third')
     tl.eventCallback('onComplete', () => {
-      gsap.set(eyebrowEl, { clearProps: 'all' });
-      gsap.set(headlineEl, { clearProps: 'all' });
-      gsap.set(headlineSpanEls, { clearProps: 'all' });
-      gsap.set(copyEl, { clearProps: 'all' });
+      gsap.set(eyebrowEl, {clearProps: 'all'});
+      gsap.set(headlineEl, {clearProps: 'all'});
+      gsap.set(headlineSpanEls, {clearProps: 'all'});
+      gsap.set(copyEl, {clearProps: 'all'});
     });
   }
 
@@ -347,6 +345,5 @@ class App {
   }
 
 }
-
 
 new App();
