@@ -390,9 +390,9 @@ select, button {
     content: attr(data-collapse);
     display: block;
     position: absolute;
-    padding: 4px 10px;
     top: 0;
     left: 50%;
+    padding: 4px 10px;
     color: var(--color-dark);
     text-shadow: none;
     transform: translateX(-50%);
