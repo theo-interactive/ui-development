@@ -4,7 +4,14 @@
     --color-dark: #222222;
     --color-default: #000000;
     --color-white: #ffffff;
-    --color-gray: #f5f5f5;
+    --color-white-80: rgba(255, 255, 255, 0.8);
+    --color-white-50: rgba(255, 255, 255, 0.5);
+    --color-white-20: rgba(255, 255, 255, 0.2);
+    --color-main: #bb2649;
+    --color-main-90: rgba(187, 38, 73, 0.9);
+    --color-sub: #efc2c0;
+    --gn-height: 70px;
+    --ease-sine-in-out: cubic-bezier(0.445, 0.050, 0.550, 0.950)
 }
 
 /*-- Reset. --*/
@@ -226,7 +233,7 @@ select, button {
 }
 
 ::selection {
-    background: var(--color-default);
+    background: var(--color-main);
     text-shadow: none;
     color: var(--color-white)
 }
@@ -241,3 +248,516 @@ select, button {
 }
 
 /*-- Layout. --*/
+input#gn-open-state {
+    overflow: hidden;
+    visibility: hidden;
+    position: absolute;
+    clip: rect(0 0 0 0);
+    width: 0;
+    height: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none
+}
+
+nav#global-navigation {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: var(--gn-height)
+}
+
+nav#global-navigation .gn-container {
+    position: relative;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-main)
+}
+
+nav#global-navigation.blur .gn-container {
+    background-color: var(--color-main-90);
+    backdrop-filter: blur(10px)
+}
+
+nav#global-navigation .gn-container .gn-content {
+    display: -webkit-box;
+    display: flex;
+    /*max-width: 1200px;*/
+    padding: 20px 40px;
+    margin-right: auto;
+    margin-left: auto;
+    color: var(--color-white);
+    align-items: center
+}
+
+nav#global-navigation .gn-content h1#gn-logo {
+    font-family: essonnes-text, 'Apple SD Gothic Neo', AppleSDGothicNeo, 'Malgun Gothic', '맑은 고딕', Roboto, 'Helvetica Neue', '애플 SD 산돌고딕 Neo', dotum, gulim, Helvetica, Arial, sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    font-style: italic;
+    line-height: 30px
+}
+
+nav#global-navigation .gn-content h1#gn-logo a {
+    position: relative;
+    color: var(--color-white);
+    cursor: pointer
+}
+
+nav#global-navigation .gn-content h1#gn-logo a::before {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-top: 1px solid var(--color-white);
+    transition: width 200ms ease-in-out;
+    -webkit-transition: width 200ms ease-in-out;
+    -moz-transition: width 200ms ease-in-out;
+    -o-transition: width 200ms ease-in-out
+}
+
+nav#global-navigation .gn-content h1#gn-logo a:hover::before {
+    width: 100%;
+    transition: width 300ms var(--ease-sine-in-out);
+    -webkit-transition: width 300ms var(--ease-sine-in-out);
+    -moz-transition: width 300ms var(--ease-sine-in-out);
+    -o-transition: width 300ms var(--ease-sine-in-out)
+}
+
+nav#global-navigation .gn-menu ul.gn-menu-list {
+    display: -webkit-box;
+    display: flex
+}
+
+nav#global-navigation .gn-menu-list li.gn-item a {
+    text-transform: uppercase;
+    color: var(--color-white);
+    cursor: pointer
+}
+
+nav#global-navigation .gn-menu-list li.gn-item.active a {
+    cursor: default
+}
+
+nav#global-navigation .gn-menu-list li.gn-item.active a {
+    font-weight: 600
+}
+
+main#main {
+    position: relative;
+    padding-top: var(--gn-height);
+    background-color: var(--color-main)
+}
+
+main#main .contents {
+    background: var(--color-dark);
+    background-image: linear-gradient(0deg, var(--color-sub) 0, var(--color-main) 100%)
+}
+
+main#main .contents section.section {
+    display: -webkit-box;
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: calc(100vh - var(--gn-height));
+    text-align: center;
+    color: var(--color-white);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
+}
+
+main#main .contents section.section + section.section::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    border-bottom: 1px solid var(--color-white-20)
+}
+
+section.section p.eyebrow {
+    text-transform: uppercase;
+    color: var(--color-white-80);
+    font-size: 20px;
+    line-height: 26px;
+}
+
+section.section p.eyebrow + h2.headline {
+    margin-top: 6px
+}
+
+section.section h2.headline {
+    text-transform: uppercase;
+    font-size: 60px;
+    font-style: italic;
+    letter-spacing: 3px;
+    line-height: 80px
+}
+
+section.section h2.headline + p.copy {
+    margin-top: 60px
+}
+
+section.section p.copy {
+    position: relative;
+    padding-top: 62px;
+    font-family: garamond-premier-pro, 'Apple SD Gothic Neo', AppleSDGothicNeo, 'Malgun Gothic', '맑은 고딕', Roboto, 'Helvetica Neue', '애플 SD 산돌고딕 Neo', dotum, gulim, Helvetica, Arial, sans-serif;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 34px
+}
+
+section.section p.copy::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 40px;
+    border-bottom: 2px solid var(--color-white-50);
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -o-transform: translateX(-50%)
+}
+
+@media only screen and (min-width: 834px) {
+    nav#global-navigation .gn-content .gn-menu {
+        margin-left: auto;
+    }
+
+    nav#global-navigation .gn-menu-list li.gn-item + li.gn-item {
+        margin-left: 28px
+    }
+
+    nav#global-navigation .gn-menu-list li.gn-item a {
+        display: block;
+        position: relative;
+        padding: 1px;
+        font-size: 14px;
+        line-height: 20px
+    }
+
+    nav#global-navigation .gn-menu-list li.gn-item a::before {
+        content: '';
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        border-top: 1px solid var(--color-white);
+        transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+        -moz-transform: translateX(-50%);
+        -o-transform: translateX(-50%);
+        transition: width 200ms ease-in-out;
+        -webkit-transition: width 200ms ease-in-out;
+        -moz-transition: width 200ms ease-in-out;
+        -o-transition: width 200ms ease-in-out
+    }
+
+    nav#global-navigation .gn-menu-list li.gn-item a:hover::before,
+    nav#global-navigation .gn-menu-list li.gn-item.active a::before {
+        width: 100%
+    }
+
+    nav#global-navigation .gn-menu-list li.gn-item.active a::before {
+        border-top-width: 2px
+    }
+
+    nav#global-navigation .gn-content label#btn-menu,
+    nav#global-navigation .gn-content button#btn-menu {
+        display: none
+    }
+}
+
+@media only screen and (max-width: 833px) {
+    :root {
+        --gn-height: 64px
+    }
+
+    body.gn-noscroll {
+        overflow: hidden
+    }
+
+    nav#global-navigation {
+        overflow: hidden;
+        transition: height 300ms 200ms ease-in-out;
+        -webkit-transition: height 300ms 200ms ease-in-out;
+        -moz-transition: height 300ms 200ms ease-in-out;
+        -o-transition: height 300ms 200ms ease-in-out;
+
+        --duration-open-menu: 500ms;
+        --duration-open-menu-item: 280ms;
+        --delay-open-base-menu-item: calc(var(--duration-open-menu) - 100ms);
+        --delay-open-menu-item: var(--delay-open-base-menu-item);
+        --duration-close-menu-item: 200ms
+    }
+
+    input#gn-open-state:checked ~ nav#global-navigation,
+    nav#global-navigation.menu-open {
+        height: 100dvh;
+        transition: height 300ms ease-in-out;
+        -webkit-transition: height 300ms ease-in-out;
+        -moz-transition: height 300ms ease-in-out;
+        -o-transition: height 300ms ease-in-out
+    }
+
+    input#gn-open-state:checked ~ nav#global-navigation {
+        height: 100dvh
+    }
+
+    nav#global-navigation .gn-container .gn-content {
+        width: 100%;
+        padding: 20px 4vw
+    }
+
+    nav#global-navigation .gn-container .gn-content {
+        padding-right: 64px
+    }
+
+    nav#global-navigation .gn-content h1#gn-logo {
+        position: relative;
+        z-index: 100;
+        font-size: 18px;
+        line-height: 24px
+    }
+
+    nav#global-navigation .gn-content .gn-menu {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        height: 100%;
+        padding-top: var(--gn-height);
+        pointer-events: none
+    }
+
+    input#gn-open-state:checked ~ nav#global-navigation .gn-content .gn-menu,
+    nav#global-navigation.menu-open .gn-content .gn-menu {
+        pointer-events: auto
+    }
+
+    nav#global-navigation .gn-menu-list li.gn-item {
+        opacity: 0;
+        transition: opacity var(--duration-close-menu-item) ease-in-out, transform var(--duration-close-menu-item) ease-in-out;
+        -webkit-transition: opacity var(--duration-close-menu-item) ease-in-out, -webkit-transform var(--duration-close-menu-item) ease-in-out;
+        -moz-transition: opacity var(--duration-close-menu-item) ease-in-out, -moz-transform var(--duration-close-menu-item) ease-in-out;
+        -o-transition: opacity var(--duration-close-menu-item) ease-in-out, -o-transform var(--duration-close-menu-item) ease-in-out
+    }
+
+    input#gn-open-state:checked ~ nav#global-navigation .gn-menu-list li.gn-item,
+    nav#global-navigation.menu-open .gn-menu-list li.gn-item {
+        opacity: 1;
+        transform: translateY(0) !important;
+        -webkit-transform: translateY(0) !important;
+        -moz-transform: translateY(0) !important;
+        -o-transform: translateY(0) !important;
+        transition: opacity var(--duration-close-menu-item) var(--delay-open-menu-item) ease-in-out, transform var(--duration-close-menu-item) var(--delay-open-menu-item) ease-in-out;
+        -webkit-transition: opacity var(--duration-close-menu-item) var(--delay-open-menu-item) ease-in-out, -webkit-transform var(--duration-close-menu-item) var(--delay-open-menu-item) ease-in-out;
+        -moz-transition: opacity var(--duration-close-menu-item) var(--delay-open-menu-item) ase-in-out, -moz-transform var(--duration-close-menu-item) var(--delay-open-menu-item) ease-in-out;
+        -o-transition: opacity var(--duration-close-menu-item) var(--delay-open-menu-item) ease-in-out, -o-transform var(--duration-close-menu-item) var(--delay-open-menu-item) ease-in-out
+    }
+
+    nav#global-navigation .gn-menu-list li.gn-item:nth-child(1) {
+        transform: translateY(10px);
+        -webkit-transform: translateY(10px);
+        -moz-transform: translateY(10px);
+        -o-transform: translateY(10px)
+    }
+
+    nav#global-navigation .gn-menu-list li.gn-item:nth-child(2) {
+        --delay-open-menu-item: calc(var(--delay-open-base-menu-item) + 50ms);
+        transform: translateY(30px);
+        -webkit-transform: translateY(30px);
+        -moz-transform: translateY(30px);
+        -o-transform: translateY(30px)
+    }
+
+    nav#global-navigation .gn-menu-list li.gn-item:nth-child(3) {
+        --delay-open-menu-item: calc(var(--delay-open-base-menu-item) + 100ms);
+        transform: translateY(60px);
+        -webkit-transform: translateY(60px);
+        -moz-transform: translateY(60px);
+        -o-transform: translateY(60px)
+    }
+
+    nav#global-navigation .gn-menu-list li.gn-item:nth-child(4) {
+        --delay-open-menu-item: calc(var(--delay-open-base-menu-item) + 150ms);
+        transform: translateY(100px);
+        -webkit-transform: translateY(100px);
+        -moz-transform: translateY(100px);
+        -o-transform: translateY(100px)
+    }
+
+    nav#global-navigation .gn-menu ul.gn-menu-list {
+        position: absolute;
+        top: calc(40dvh + var(--gn-height));
+        left: 4vw;
+        flex-direction: column;
+        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+        -moz-transform: translateY(-50%);
+        -o-transform: translateY(-50%)
+    }
+
+    nav#global-navigation .gn-menu-list li.gn-item a {
+        display: inline-block;
+        vertical-align: top;
+        font-size: 64px;
+        font-weight: 500;
+        letter-spacing: -0.5px;
+        line-height: 70px
+    }
+
+    nav#global-navigation .gn-menu-list li.gn-item.active a {
+        text-transform: lowercase;
+        font-family: essonnes-text, 'Apple SD Gothic Neo', AppleSDGothicNeo, 'Malgun Gothic', '맑은 고딕', Roboto, 'Helvetica Neue', '애플 SD 산돌고딕 Neo', dotum, gulim, Helvetica, Arial, sans-serif;
+        font-weight: 400
+    }
+
+    /*
+    nav#global-navigation .gn-content label#btn-menu,
+    nav#global-navigation .gn-content button#btn-menu {
+        display: block;
+        position: relative;
+        z-index: 100;
+        margin-left: auto;
+        padding: 2px 5px;
+        text-transform: uppercase;
+        color: var(--color-main);
+        background-color: var(--color-white);
+        border-radius: 4px;
+        font-size: 12px;
+        line-height: 16px;
+        cursor: pointer;
+        user-select: none;
+        -webkit-user-select: none
+    }
+    */
+
+    nav#global-navigation .gn-content button#btn-menu {
+        overflow: hidden;
+        display: block;
+        position: absolute;
+        z-index: 100;
+        top: 0;
+        right: 0;
+        padding: 22px 20px;
+        margin-left: auto;
+        width: var(--gn-height);
+        height: var(--gn-height);
+        text-indent: -9999rem
+    }
+
+    nav#global-navigation .gn-content button#btn-menu span {
+        display: block;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform var(--duration-open-menu) ease-in-out;
+        -webkit-transition: -webkit-transform var(--duration-open-menu) ease-in-out;
+        -moz-transition: -moz-transform var(--duration-open-menu) ease-in-out;
+        -o-transition: -o-transform var(--duration-open-menu) ease-in-out
+    }
+
+    nav#global-navigation.menu-open .gn-content button#btn-menu span {
+        transform: rotate(-180deg);
+        -webkit-transform: rotate(-180deg);
+        -moz-transform: rotate(-180deg);
+        -o-transform: rotate(-180deg)
+    }
+
+    nav#global-navigation .gn-content button#btn-menu span::before,
+    nav#global-navigation .gn-content button#btn-menu span::after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        left: 0;
+        border-bottom: 1px solid var(--color-white);
+        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+        -moz-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
+        transition: margin var(--duration-open-menu) ease-in-out, transform var(--duration-open-menu) ease-in-out;
+        -webkit-transition: margin var(--duration-open-menu) ease-in-out, -webkit-transform var(--duration-open-menu) ease-in-out;
+        -moz-transition: margin var(--duration-open-menu) ease-in-out, -moz-transform var(--duration-open-menu) ease-in-out;
+        -o-transition: margin var(--duration-open-menu) ease-in-out, -o-transform var(--duration-open-menu) ease-in-out
+    }
+
+    nav#global-navigation .gn-content button#btn-menu span::before {
+        margin-top: -4px
+    }
+
+    nav#global-navigation .gn-content button#btn-menu span::after {
+        margin-top: 4px
+    }
+
+    nav#global-navigation.menu-open .gn-content button#btn-menu span::before,
+    nav#global-navigation.menu-open .gn-content button#btn-menu span::after {
+        margin-top: 0
+    }
+
+    nav#global-navigation.menu-open .gn-content button#btn-menu span::before {
+        transform: translateY(-50%) rotate(45deg);
+        -webkit-transform: translateY(-50%) rotate(45deg);
+        -moz-transform: translateY(-50%) rotate(45deg);
+        -o-transform: translateY(-50%) rotate(45deg)
+    }
+
+    nav#global-navigation.menu-open .gn-content button#btn-menu span::after {
+        transform: translateY(-50%) rotate(-45deg);
+        -webkit-transform: translateY(-50%) rotate(-45deg);
+        -moz-transform: translateY(-50%) rotate(-45deg);
+        -o-transform: translateY(-50%) rotate(-45deg)
+    }
+
+    main#main .contents section.section {
+        padding-right: 4vw;
+        padding-left: 4vw
+    }
+
+    section.section p.eyebrow {
+        font-size: 3vw;
+        line-height: 3.6vw
+    }
+
+    section.section p.eyebrow + h2.headline {
+        margin-top: 0.8vw
+    }
+
+    section.section h2.headline {
+        font-size: 8vw;
+        line-height: 10vw
+    }
+
+    section.section h2.headline + p.copy {
+        margin-top: 6vw
+    }
+
+    section.section p.copy {
+        padding-top: calc(6vw + 1px);
+        font-size: 3.6vw;
+        line-height: 4.2vw
+    }
+
+    section.section p.copy::before {
+        border-bottom-width: 1px
+    }
+
+    section.section p.copy br {
+        display: none
+    }
+}
+
