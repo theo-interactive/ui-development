@@ -18,14 +18,24 @@ const APP = {
     },
     layout() {
         this.clipEl = document.querySelector('#clip');
+        this.btnPlayEl = document.querySelector('#btn-play');
+        this.btnReverseEl = document.querySelector('#btn-reverse');
+        this.btnStopEl = document.querySelector('#btn-stop');
+        this.btnResetEl = document.querySelector('#btn-reset');
+        this.resultEl = document.querySelector('#result');
+        this.currentEl = this.resultEl.querySelector('.current');
+        this.maxEl = this.resultEl.querySelector('.max');
     },
     addEvent() {
-        this.clipEl.addEventListener('mouseenter', this.handleMouseEnterClipEl.bind(this));
-        this.clipEl.addEventListener('mouseleave', this.handleMouseLeaveClipEl.bind(this));
+        this.btnPlayEl.addEventListener('click', this.handleClickBtnPlayEl.bind(this));
+        this.btnReverseEl.addEventListener('click', this.handleClickBtnReverseEl.bind(this));
+        this.btnStopEl.addEventListener('click', this.handleClickBtnStopEl.bind(this));
+        this.btnResetEl.addEventListener('click', this.handleClickBtnResetEl.bind(this));
     },
     reset() {
         this._clipWidth = this._imageWidth / this._col;
         this._clipHeight = this._imageHeight / this._row;
+        this.maxEl.innerHTML = this._max;
         this.updateFrame();
     },
     playFrame() {
@@ -59,8 +69,9 @@ const APP = {
         const posX = this._cuId % this._col * this._clipWidth * -1;
         const posY = Math.floor(this._cuId / this._col) * this._clipHeight * -1;
         this.clipEl.style.backgroundPosition = `${posX}px ${posY}px`;
+        this.currentEl.innerHTML = `${this._cuId + 1}`;
     },
-    handleMouseEnterClipEl() {
+    handleClickBtnPlayEl() {
         if (this._cuId > this._max - 1) {
             return
         }
@@ -68,13 +79,22 @@ const APP = {
         this._isReverse = false;
         this.playFrame();
     },
-    handleMouseLeaveClipEl() {
+    handleClickBtnReverseEl() {
         if (this._cuId < 0) {
             return
         }
         this.stopFrame();
         this._isReverse = true;
         this.playFrame();
+    },
+    handleClickBtnStopEl() {
+        this.stopFrame();
+    },
+    handleClickBtnResetEl() {
+        this.stopFrame();
+        this._cuId = 0;
+        this._isReverse = false;
+        this.updateFrame();
     }
 }
 
