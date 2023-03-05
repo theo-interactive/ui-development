@@ -1,4 +1,4 @@
-# Sprite Sheet Animation (Controls) (Typescript)
+# Sprite Sheet Animation Multiple Clips (Typescript)
 
 ## Installation
 
