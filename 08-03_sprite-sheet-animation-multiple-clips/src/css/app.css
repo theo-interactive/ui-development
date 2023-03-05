@@ -251,10 +251,10 @@ select, button {
     align-items: center
 }
 
-.clip{
+.clip {
     overflow: hidden
 }
 
 .clip + .clip {
-    margin-left: 20px;
+    margin-left: 20px
 }

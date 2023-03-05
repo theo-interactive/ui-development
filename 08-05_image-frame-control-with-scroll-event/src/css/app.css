@@ -240,21 +240,76 @@ select, button {
 }
 
 /*-- Layout. --*/
-#wrap {
-    overflow: hidden;
-    display: -webkit-box;
-    display: flex;
-    width: 100vw;
-    height: 100vh;
-    background-color: var(--color-default);
-    justify-content: center;
-    align-items: center
+main.main.inactive {
+    visibility: hidden;
+    opacity: 0
 }
 
-.clip {
-    overflow: hidden
+.section-space {
+    position: relative;
+    width: 100%;
+    height: 25vh
 }
 
-.clip + .clip {
-    margin-left: 20px
+section.section-hero {
+    position: relative;
+    background-color: var(--color-white)
+}
+
+section.section-hero .sticky-wrap {
+    position: relative;
+    height: 300vh
+}
+
+section.section-hero .sticky-wrap .sticky-inner {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 80px;
+    width: 100%;
+    height: 150vh
+}
+
+section.section-hero .product {
+    position: absolute;
+    width: 100%;
+    height: 100%
+}
+
+section.section-hero .product .product-visual {
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    will-change: transform
+}
+
+section.section-hero .product .product-visual canvas.frame-sequence,
+section.section-hero .product .product-visual picture.cups,
+section.section-hero .product .product-visual picture.frame,
+section.section-hero .product .product-visual picture.cups img,
+section.section-hero .product .product-visual picture.frame img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    will-change: transform
+}
+
+section.section-hero .product .product-visual canvas.frame-sequence {
+    z-index: 100
+}
+
+section.section-hero .product .product-visual picture.cups,
+section.section-hero .product .product-visual picture.frame {
+    visibility: hidden;
+    opacity: 0
+}
+
+section.section-hero .product .product-visual picture.cups.visible,
+section.section-hero .product .product-visual picture.frame.visible {
+    visibility: visible;
+    opacity: 1
 }
