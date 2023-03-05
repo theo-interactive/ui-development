@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Image Frame Control with Scroll Event</title>
+  <link rel="stylesheet" type="text/css" href="/src/css/app.css" />
+</head>
+<body>
+<main id="main" role="main" class="main inactive">
+  <div class="section-space">&nbsp;</div>
+  <section id="hero" class="section-hero">
+    <div class="sticky-wrap">
+      <div class="sticky-inner">
+        <div id="product" class="product">
+          <div id="product-visual" class="product-visual">
+            <canvas id="frame-sequence" class="frame-sequence"></canvas>
+            <picture id="cups" class="cups">
+              <source srcset="/src/img/airpods-max_cups.png" />
+              <img src="/src/img/airpods-max_cups.png" class="cups-image" alt="Airpods Pro" />
+            </picture>
+            <picture id="frame" class="frame">
+              <source srcset="/src/img/airpods-max_frame.png" />
+              <img src="/src/img/airpods-max_frame.png" class="frame-image" alt="Airpods Pro" />
+            </picture>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="section-space">&nbsp;</div>
+</main>
+<script type="module" src="/src/ts/app.ts"></script>
+</body>
+</html>
