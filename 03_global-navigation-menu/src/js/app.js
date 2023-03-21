@@ -22,7 +22,7 @@ const APP = {
         this.gnLogoEl.addEventListener('click', this.handleClickGNLogoEl.bind(this));
         this.gnMenuLinkEls.forEach((el) => {
             el.addEventListener('click', this.handleClickGNMenuLinkEl.bind(this));
-        })
+        });
         this.btnMenuEl.addEventListener('click', this.handleClickBtnMenuEl.bind(this));
     },
     setMenuView() {
@@ -59,7 +59,7 @@ const APP = {
         this.btnMenuSpanEl.innerHTML = 'Close';
     },
     handleResizeWindow() {
-        const {innerWidth: width} = window;
+        const { innerWidth: width } = window;
         if (width >= this._breakPointMobile) {
             if (this._isOpenMenu) {
                 this.setMenuView();
