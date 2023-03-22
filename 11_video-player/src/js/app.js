@@ -1,81 +1,6 @@
-const PLAYLIST = [{
-    'album': 'xx',
-    'byline': 'The xx',
-    'title': 'Intro',
-    'year': 2009,
-    'artwork': '/poster/artwork.jpg',
-    'track': '/audio/Intro.mp3'
-}, {
-    'album': 'xx',
-    'byline': 'The xx',
-    'title': 'VCR',
-    'year': 2009,
-    'artwork': '/poster/artwork.jpg',
-    'track': '/audio/VCR.mp3'
-}, {
-    'album': 'xx',
-    'byline': 'The xx',
-    'title': 'Crystalised',
-    'year': 2009,
-    'artwork': '/poster/artwork.jpg',
-    'track': '/audio/Crystalised.mp3'
-}, {
-    'album': 'xx',
-    'byline': 'The xx',
-    'title': 'Islands',
-    'year': 2009,
-    'artwork': '/poster/artwork.jpg',
-    'track': '/audio/Islands.mp3'
-}, {
-    'album': 'xx',
-    'byline': 'The xx',
-    'title': 'Heart Skipped A Beat',
-    'year': 2009,
-    'artwork': '/poster/artwork.jpg',
-    'track': '/audio/Heart Skipped A Beat.mp3'
-}, {
-    'album': 'xx',
-    'byline': 'The xx',
-    'title': 'Fantasy',
-    'year': 2009,
-    'artwork': '/poster/artwork.jpg',
-    'track': '/audio/Fantasy.mp3'
-}, {
-    'album': 'xx',
-    'byline': 'The xx',
-    'title': 'Shelter',
-    'year': 2009,
-    'artwork': '/poster/artwork.jpg',
-    'track': '/audio/Shelter.mp3'
-}, {
-    'album': 'xx',
-    'byline': 'The xx',
-    'title': 'Basic Space',
-    'year': 2009,
-    'artwork': '/poster/artwork.jpg',
-    'track': '/audio/Basic Space.mp3'
-}, {
-    'album': 'xx',
-    'byline': 'The xx',
-    'title': 'Infinity',
-    'year': 2009,
-    'artwork': '/poster/artwork.jpg',
-    'track': '/audio/Infinity.mp3'
-}, {
-    'album': 'xx',
-    'byline': 'The xx',
-    'title': 'Night Time',
-    'year': 2009,
-    'artwork': '/poster/artwork.jpg',
-    'track': '/audio/Night Time.mp3'
-}, {
-    'album': 'xx',
-    'byline': 'The xx',
-    'title': 'Stars',
-    'year': 2009,
-    'artwork': '/poster/artwork.jpg',
-    'track': '/audio/Stars.mp3'
-}];
+const PLAYLIST = [
+    [{'type': 'video/mp4', 'src': '/video/video.mp4'}]
+];
 
 const APP = {
     _isHour: true,
@@ -84,6 +9,7 @@ const APP = {
     _isTimeDrag: false,
     _isVolumeDrag: false,
     _isEnd: false,
+    _isFS: false,
     _duration: 0,
     _cuId: 0,
     _cuTime: 0,
@@ -91,82 +17,76 @@ const APP = {
 
     init() {
         this.layout();
-        this.createAudio();
+        this.setVideo();
         this.addEvent();
         this.reset();
     },
     layout() {
-        this.audioPlayerEl = document.getElementById('audio-player');
-        this.audioInfoEl = this.audioPlayerEl.querySelector('.audio-info');
-        this.songCoverEl = this.audioInfoEl.querySelector('.song-cover');
-        this.artworkEl = this.songCoverEl.querySelector('img');
-        this.songInfoEl = this.audioInfoEl.querySelector('.song-info');
-        this.songInfoTitleEl = this.songInfoEl.querySelector('.song-title');
-        this.songInfoDescEl = this.songInfoEl.querySelector('.song-desc');
-        this.titleEl = this.songInfoTitleEl.querySelector('.title');
-        this.bylineEl = this.songInfoDescEl.querySelector('.byline');
-        this.albumEl = this.songInfoDescEl.querySelector('.album');
-        this.yearEl = this.songInfoDescEl.querySelector('.year');
-        this.audioControlsEl = this.audioPlayerEl.querySelector('.audio-controls');
-        this.progressBarContainerEl = this.audioControlsEl.querySelector('.progress-bar-container');
+        this.videoPlayerEl = document.getElementById('video-player');
+        this.videoEl = this.videoPlayerEl.querySelector('video.video');
+        this.videoControlsEl = this.videoPlayerEl.querySelector('.video-controls');
+        this.progressBarContainerEl = this.videoControlsEl.querySelector('.progress-bar-container');
         this.progressBarEl = this.progressBarContainerEl.querySelector('.progress-bar');
         this.progressEl = this.progressBarEl.querySelector('.progress');
         this.progressHandleEl = this.progressBarEl.querySelector('.handle');
-        this.controlContainerEl = this.audioControlsEl.querySelector('.controls-container');
+        this.currentTimeEl = this.progressBarContainerEl.querySelector('.current-time');
+        this.totalTimeEl = this.progressBarContainerEl.querySelector('.total-time');
+        this.controlContainerEl = this.videoControlsEl.querySelector('.controls-container');
         this.playControlEl = this.controlContainerEl.querySelector('.play-control');
         this.btnPrevEl = this.playControlEl.querySelector('.btn-prev');
         this.btnPlayPauseEl = this.playControlEl.querySelector('.btn-play-pause');
         this.btnNextEl = this.playControlEl.querySelector('.btn-next');
-        this.timeInfoEl = this.controlContainerEl.querySelector('.time-info');
-        this.currentTimeEl = this.timeInfoEl.querySelector('.current-time');
-        this.totalTimeEl = this.timeInfoEl.querySelector('.total-time');
         this.volumeControlEl = this.controlContainerEl.querySelector('.volume-control');
         this.btnMuteEl = this.volumeControlEl.querySelector('.btn-mute');
         this.volumeBarEl = this.volumeControlEl.querySelector('.volume-bar');
         this.volumeEl = this.volumeBarEl.querySelector('.volume');
         this.volumeHandleEl = this.volumeBarEl.querySelector('.handle');
+        this.fullscreenControlEl = this.controlContainerEl.querySelector('.fullscreen-control');
+        this.btnFullscreenEl = this.fullscreenControlEl.querySelector('.btn-fullscreen');
     },
     addEvent() {
-        this.audioEl.addEventListener('loadedmetadata', this.handleLoadMetaDataAudio.bind(this));
-        this.audioEl.addEventListener('timeupdate', this.handleTimeUpdateAudio.bind(this));
-        this.audioEl.addEventListener('ended', this.handleEndedAudio.bind(this));
+        this.videoEl.addEventListener('loadedmetadata', this.handleLoadMetaDataVideo.bind(this));
+        this.videoEl.addEventListener('timeupdate', this.handleTimeUpdateVideo.bind(this));
+        this.videoEl.addEventListener('ended', this.handleEndedVideo.bind(this));
         this.progressBarEl.addEventListener('mousedown', this.handleMouseDownProgress.bind(this));
         window.addEventListener('mousemove', this.handleMouseMoveProgress.bind(this));
         window.addEventListener('mouseup', this.handleMouseUpProgress.bind(this));
-        this.btnPrevEl.addEventListener('click', this.handleClickPrevEl.bind(this));
         this.btnPlayPauseEl.addEventListener('click', this.handleClickPlayPauseEl.bind(this));
-        this.btnNextEl.addEventListener('click', this.handleClickNextEl.bind(this));
         this.btnMuteEl.addEventListener('click', this.handleClickMuteEl.bind(this));
         this.volumeBarEl.addEventListener('mousedown', this.handleMouseDownVolume.bind(this));
         window.addEventListener('mousemove', this.handleMouseMoveVolume.bind(this));
         window.addEventListener('mouseup', this.handleMouseUpVolume.bind(this));
+        this.btnFullscreenEl.addEventListener('click', this.handleClickFullscreenEl.bind(this));
+        document.addEventListener('webkitfullscreenchange', this.handleChangeWebkitFullscreen.bind(this), false);
+        document.addEventListener('mozfullscreenchange', this.handleChangeMozFullscreen.bind(this), false);
+        document.addEventListener('fullscreenchange', this.handleChangeFullscreen.bind(this), false);
     },
     reset() {
-        this.selectTrack()
+        this.selectClip();
     },
-    createAudio() {
+    setVideo() {
         if (PLAYLIST.length <= 1) {
             this.btnPrevEl.style.display = 'none';
             this.btnNextEl.style.display = 'none';
         }
-        this.audioEl = new Audio();
-        this.audioEl.loop = false;
+        this.videoEl.loop = false;
     },
-    selectTrack() {
-        const playItem = PLAYLIST[this._cuId];
-        const {album, byline, title, year, artwork, track} = playItem
-        this.titleEl.innerHTML = title;
-        this.bylineEl.innerHTML = byline;
-        this.albumEl.innerHTML = album;
-        this.yearEl.innerHTML = `${year}`;
+    selectClip() {
+        const playItems = PLAYLIST[this._cuId];
+        this.videoEl.innerHTML = '';
         this._cuTime = 0;
-        this.artworkEl.src = artwork
-        // this.artworkEl.setAttribute('src', artwork);
-        this.audioEl.src = track;
-        this.audioEl.currentTime = this._cuTime;
+        playItems.forEach((item) => {
+            const sourceEl = document.createElement('source');
+            const {type, src} = item;
+            sourceEl.type = type;
+            sourceEl.src = src;
+            sourceEl.src = src;
+            this.videoEl.appendChild(sourceEl);
+        });
+        this.videoEl.currentTime = this._cuTime;
         this.updateProgressBar(this._cuTime);
         if (this._isPlay) {
-            this.audioEl.play();
+            this.videoEl.play();
         }
     },
     getTimeFormat(ms) {
@@ -205,7 +125,7 @@ const APP = {
         }
         this._cuTime = pos / width * this._duration;
         this.updateProgressBar(this._cuTime);
-        this.audioEl.currentTime = this._cuTime;
+        this.videoEl.currentTime = this._cuTime;
     },
     updateVolumeBar(volume) {
         const percent = volume * 100;
@@ -229,17 +149,26 @@ const APP = {
         }
         this._isMute = this._cuVolume <= 0;
         this.updateVolumeBar(this._cuVolume);
-        this.audioEl.volume = this._cuVolume;
+        this.videoEl.volume = this._cuVolume;
     },
-    handleLoadMetaDataAudio() {
-        this._duration = this.audioEl.duration;
+    setFullscreen(fs = false) {
+        if (!fs) {
+            this.videoPlayerEl.classList.add('fs');
+        } else {
+            this.videoPlayerEl.classList.remove('fs');
+        }
+        this.updateProgressBar(this._cuTime);
+        if (!this._isMute) this.updateVolumeBar(this._cuVolume);
+    },
+    handleLoadMetaDataVideo() {
+        this._duration = this.videoEl.duration;
         this._isHour = this._duration >= 3600
         this.totalTimeEl.innerHTML = this.getTimeFormat(this._duration);
         this.currentTimeEl.innerHTML = this.getTimeFormat(this._cuTime);
-        this._cuVolume = this.audioEl.volume;
+        this._cuVolume = this.videoEl.volume;
     },
-    handleTimeUpdateAudio() {
-        this._cuTime = this.audioEl.currentTime;
+    handleTimeUpdateVideo() {
+        this._cuTime = this.videoEl.currentTime;
         this.currentTimeEl.innerHTML = this.getTimeFormat(this._cuTime);
         if (!this._isTimeDrag) {
             this.updateProgressBar(this._cuTime);
@@ -251,12 +180,12 @@ const APP = {
             }
         }
     },
-    handleEndedAudio() {
+    handleEndedVideo() {
         this._cuId++;
         if (this._cuId > PLAYLIST.length - 1) {
             this._cuId = 0;
         }
-        this.selectTrack();
+        this.selectClip();
     },
     handleMouseDownProgress(e) {
         e.preventDefault();
@@ -264,7 +193,7 @@ const APP = {
             return
         }
         this._isTimeDrag = true;
-        this.audioEl.pause();
+        this.videoEl.pause();
         this.updateProgress(e.pageX);
     },
     handleMouseMoveProgress(e) {
@@ -282,44 +211,30 @@ const APP = {
         this._isTimeDrag = false;
         this.updateProgress(e.pageX);
         if (this._isPlay) {
-            this.audioEl.play();
+            this.videoEl.play();
         }
-    },
-    handleClickPrevEl() {
-        this._cuId--;
-        if (this._cuId < 0) {
-            this._cuId = PLAYLIST.length - 1;
-        }
-        this.selectTrack();
     },
     handleClickPlayPauseEl() {
         if (!this._isPlay) {
             this.btnPlayPauseEl.classList.add('paused');
-            this.audioEl.play();
+            this.videoEl.play();
         } else {
             this.btnPlayPauseEl.classList.remove('paused');
-            this.audioEl.pause();
+            this.videoEl.pause();
         }
         this._isPlay = !this._isPlay;
-    },
-    handleClickNextEl() {
-        this._cuId++;
-        if (this._cuId > PLAYLIST.length - 1) {
-            this._cuId = 0;
-        }
-        this.selectTrack();
     },
     handleClickMuteEl() {
         if (!this._isMute) {
             this.btnMuteEl.classList.add('muted');
-            this.audioEl.volume = 0;
+            this.videoEl.volume = 0;
             this.updateVolumeBar(0);
         } else {
             this.btnMuteEl.classList.remove('muted');
             if (this._cuVolume <= 0) {
                 this._cuVolume = 0.1;
             }
-            this.audioEl.volume = this._cuVolume;
+            this.videoEl.volume = this._cuVolume;
             this.updateVolumeBar(this._cuVolume);
         }
         this._isMute = !this._isMute;
@@ -346,6 +261,43 @@ const APP = {
         }
         this._isVolumeDrag = false;
         this.updateVolume(e.pageX);
+    },
+    handleClickFullscreenEl() {
+        if (!this._isFS) {
+            if (this.videoPlayerEl.requestFullscreen) {
+                this.videoPlayerEl.requestFullscreen();
+            } else if (this.videoPlayerEl.mozRequestFullScreen) {
+                this.videoPlayerEl.mozRequestFullScreen();
+            } else if (this.videoPlayerEl.webkitRequestFullscreen) {
+                this.videoPlayerEl.webkitRequestFullscreen();
+            } else if (this.videoPlayerEl.msRequestFullscreen) {
+                this.videoPlayerEl.msRequestFullscreen();
+            }
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen().then(() => {}).catch((err) => console.error(err));
+            } else if (this.videoPlayerEl.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+        }
+    },
+    handleChangeFullscreen() {
+        this._isFS = document.fullscreenElement != null;
+        this.setFullscreen(document.fullscreenElement === null);
+    },
+    handleChangeWebkitFullscreen() {
+        this._isFS = document.webkitIsFullScreen;
+        this.setFullscreen(!document.webkitIsFullScreen);
+    },
+    handleChangeMozFullscreen() {
+        console.log('handleChangeMozFullscreen');
+        this._isFS = document.mozIsFullScreen;
+        this.setFullscreen(!document.mozIsFullScreen);
     }
 }
 APP.init();
+

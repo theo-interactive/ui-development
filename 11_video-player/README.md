@@ -1,4 +1,4 @@
-# Audio Player
+# Video Player
 
 ## Installation
 

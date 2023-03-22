@@ -1,0 +1,578 @@
+@import url("https://use.typekit.net/zzj4qmz.css");
+
+:root {
+    --color-dark: #222222;
+    --color-default: #000000;
+    --color-white: #ffffff;
+}
+
+/*-- Reset. --*/
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, textarea, p, blockquote, th, td, input, select, textarea, button, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    margin: 0;
+    padding: 0
+}
+
+article, aside, details, figcaption, figure, footer, header, main, hgroup, menu, nav, section {
+    display: block
+}
+
+audio, canvas, progress, video {
+    display: inline-block
+}
+
+a, abbr, address, article, aside, audio, b, blockquote, body, br, button, canvas, caption, cite, code, col, data, datalist, dd, del, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hr, html, i, iframe, img, input, ins, kbd, label, legend, li, main, mark, meter, nav, object, ol, output, p, pre, progress, q, s, samp, section, select, small, span, strong, sub, sup, table, td, textarea, th, time, u, ul, var, video {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent
+}
+
+html {
+    -ms-content-zooming: none;
+    -ms-touch-action: pan-x pan-y
+}
+
+body {
+    -webkit-text-size-adjust: none
+}
+
+fieldset, img {
+    border: 0 none
+}
+
+dl, ul, ol, menu, li {
+    list-style: none
+}
+
+blockquote, q {
+    quotes: none
+}
+
+blockquote::before, blockquote::after, q::before, q::after {
+    content: '';
+    content: none
+}
+
+input, select, textarea, button {
+    font-size: 100%;
+    vertical-align: middle;
+    outline: none
+}
+
+button {
+    border: 0 none;
+    background-color: transparent;
+    cursor: pointer;
+    overflow: hidden
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+input[type="text"], input[type="tel"], input[type="password"], input[type="submit"], input[type="search"], input[type="number"] {
+    background-color: transparent;
+    border-radius: 0;
+    box-shadow: 0 0 0 0 transparent inset;
+    transition: color .1s ease, border-color .1s ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none
+}
+
+input:checked[type="checkbox"] {
+    background-color: var(--color-dark);
+    -webkit-appearance: checkbox
+}
+
+button, input[type="button"], input[type="submit"], input[type="reset"], input[type="file"] {
+    -webkit-appearance: button;
+    border-radius: 0
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none
+}
+
+input[type="date"] {
+    text-align: center;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none
+}
+
+input[type="date"]:invalid::-webkit-datetime-edit {
+    color: var(--color-dark)
+}
+
+input[type="date"]::-webkit-clear-button {
+    display: none
+}
+
+input[type="date"]::-webkit-inner-spin-button {
+    display: none
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    color: var(--color-dark)
+}
+
+input[type="date"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none
+}
+
+input:-webkit-autofill, input:-webkit-autofill:active, input:-webkit-autofill:focus, input:-webkit-autofill:hover {
+    -webkit-transition: background-color 5000s ease-in-out 0s;
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-box-shadow: 0 0 0 1000px transparent inset !important
+}
+
+textarea {
+    background-color: transparent;
+    border: none;
+    resize: none
+}
+
+audio:not([controls]) {
+    display: none;
+    height: 0
+}
+
+[hidden], template {
+    display: none
+}
+
+a, a:active, a:hover {
+    text-decoration: none
+}
+
+address, caption, cite, code, dfn, em, var {
+    font-style: normal;
+    font-weight: 400
+}
+
+i {
+    font-style: normal
+}
+
+a, button {
+    position: relative;
+    -webkit-tap-highlight-color: transparent
+}
+
+input {
+    border-radius: 0;
+    border: none;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    opacity: 1
+}
+
+a {
+    color: var(--color-dark);
+    -webkit-transition: color 200ms ease-in-out;
+    -moz-transition: color 200ms ease-in-out;
+    -o-transition: color 200ms ease-in-out;
+    transition: color 200ms ease-in-out
+}
+
+a:focus, input:focus, textarea:focus, button:focus {
+    outline: none
+}
+
+.blind {
+    overflow: hidden;
+    display: none;
+    visibility: hidden;
+    position: absolute;
+    clip: rect(0 0 0 0);
+    width: 0;
+    height: 0
+}
+
+html, body, th, td, input, select, textarea, button {
+    color: var(--color-dark);
+    text-size-adjust: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizelegibility;
+    font-family: futura-pt, 'Apple SD Gothic Neo', AppleSDGothicNeo, 'Malgun Gothic', '맑은 고딕', Roboto, 'Helvetica Neue', '애플 SD 산돌고딕 Neo', dotum, gulim, Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5rem
+}
+
+select, button {
+    user-select: none;
+    -webkit-user-select: none
+}
+
+::-moz-selection {
+    background: var(--color-default);
+    text-shadow: none;
+    color: var(--color-white)
+}
+
+::selection {
+    background: var(--color-main);
+    text-shadow: none;
+    color: var(--color-white)
+}
+
+.visually-hidden {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0;
+    height: 0;
+    clip: rect(0, 0, 0, 0);
+    pointer-events: none
+}
+
+/*-- Layout. --*/
+#wrap {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center
+}
+
+.video-player {
+    overflow: hidden;
+    position: relative;
+    width: 800px;
+    padding-bottom: 60px;
+    box-sizing: border-box;
+    background-color: #000;
+    border-radius: 2px
+}
+
+.video-player.fs {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.video-player .video-wrap {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center
+}
+
+.video-player .video-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%
+}
+
+.video-player .video-container::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: transparent
+}
+
+.video-container .video-frame {
+    position: absolute;
+    width: 100%;
+    height: 100%
+}
+
+.video-container .video-frame video.video {
+    overflow: hidden;
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    border-radius: 2px
+}
+
+.video-player .video-controls {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 5px 10px 10px;
+    background-color: #242424;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
+}
+
+.video-player .video-controls::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.15)
+}
+
+.video-controls .progress-bar-container, .video-controls .controls-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex
+}
+
+.video-controls .progress-bar-container {
+    height: 20px;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center
+}
+
+.progress-bar-container .progress-bar {
+    position: relative;
+    height: 10px;
+    flex: 1;
+    cursor: pointer
+}
+
+.progress-bar-container .progress-bar::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    background-color: #666;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    pointer-events: none
+}
+
+.progress-bar-container .progress-bar .progress {
+    display: block;
+    position: absolute;
+    top: 50%;
+    width: 0;
+    height: 1px;
+    background-color: #fe557b;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    pointer-events: none
+}
+
+.progress-bar-container .progress-bar .handle {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 5px;
+    height: 5px;
+    background-color: #fe557b;
+    border-radius: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -o-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    pointer-events: none
+}
+
+.progress-bar-container .current-time, .progress-bar-container .total-time {
+    width: 50px;
+    height: 100%;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    text-align: center;
+    color: #fff;
+    font-size: 0.833rem;
+    line-height: 1.333rem;
+    white-space: nowrap;
+    box-sizing: border-box;
+    cursor: default
+}
+
+.progress-bar-container .current-time {
+    text-align: left
+}
+
+.progress-bar-container .total-time {
+    text-align: right
+}
+
+.video-controls .progress-bar-container + .controls-container {
+    margin-top: 5px
+}
+
+.controls-container .play-control, .controls-container .volume-control, .controls-container .fullscreen-control {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative
+}
+
+.controls-container .play-control button, .controls-container .volume-control button, .controls-container .fullscreen-control button {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    cursor: pointer
+}
+
+.controls-container .play-control button span, .controls-container .volume-control button span, .controls-container .fullscreen-control button span {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: 20px 20px;
+    background-repeat: no-repeat
+}
+
+.controls-container .play-control button {
+    margin-right: 4px
+}
+
+.controls-container .play-control button:last-child {
+    margin-right: inherit
+}
+
+.controls-container .play-control button.btn-prev span {
+    background-image: url(./../img/prev.png)
+}
+
+.controls-container .play-control button.btn-play-pause span {
+    background-image: url(./../img/play.png)
+}
+
+.controls-container .play-control button.btn-play-pause.paused span {
+    background-image: url(./../img/pause.png)
+}
+
+.controls-container .play-control button.btn-stop span {
+    background-image: url(./../img/stop.png)
+}
+
+.controls-container .play-control button.btn-next span {
+    background-image: url(./../img/next.png)
+}
+
+.controls-container .volume-control {
+    margin-left: auto
+}
+
+.controls-container .volume-control button.btn-mute span {
+    background-image: url(./../img/sound_on.png)
+}
+
+.controls-container .volume-control button.btn-mute.muted span {
+    background-image: url(./../img/sound_off.png)
+}
+
+.controls-container .volume-control button.btn-mute + .volume-bar {
+    margin-left: 8px
+}
+
+.controls-container .volume-control .volume-bar {
+    position: relative;
+    width: 60px;
+    height: 100%;
+    cursor: pointer
+}
+
+.controls-container .volume-control .volume-bar::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    background-color: #666;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    pointer-events: none
+}
+
+.controls-container .volume-control .volume-bar .volume {
+    display: block;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    background-color: #fff;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    pointer-events: none
+}
+
+.controls-container .volume-control .volume-bar .handle {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    width: 5px;
+    height: 5px;
+    background-color: #fff;
+    border-radius: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -o-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    pointer-events: none
+}
+
+.controls-container .volume-control + .fullscreen-control {
+    margin-left: 11px
+}
+
+.controls-container .fullscreen-control button.btn-fullscreen span {
+    background-image: url(./../img/fullscreen.png)
+}
+
+.video-player.fs .controls-container .fullscreen-control button.btn-fullscreen span {
+    background-image: url(./../img/exitscreen.png)
+}
